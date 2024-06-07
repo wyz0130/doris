@@ -20,10 +20,18 @@
 
 package org.apache.doris.plsql.functions;
 
+
 import org.apache.doris.nereids.PLParser.Expr_func_paramsContext;
 import org.apache.doris.nereids.PLParser.Expr_spec_funcContext;
 import org.apache.doris.plsql.Exec;
 import org.apache.doris.plsql.executor.QueryExecutor;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FunctionString extends BuiltinFunctions {
     public FunctionString(Exec e, QueryExecutor queryExecutor) {
@@ -35,11 +43,14 @@ public class FunctionString extends BuiltinFunctions {
      */
     @Override
     public void register(BuiltinFunctions f) {
+        System.out.println(f.toString());
         f.map.put("CONCAT", this::concat);
+        f.map.put("CONCAT1", this::concat);
         f.map.put("CHAR", this::char_);
         f.map.put("INSTR", this::instr);
         f.map.put("LEN", this::len);
         f.map.put("LENGTH", this::length);
+        f.map.put("CHAR_LENGTH", this::length);
         f.map.put("LOWER", this::lower);
         f.map.put("REPLACE", this::replace);
         f.map.put("SUBSTR", this::substr);
@@ -268,12 +279,38 @@ public class FunctionString extends BuiltinFunctions {
      */
     void toChar(Expr_func_paramsContext ctx) {
         int cnt = getParamCount(ctx);
-        if (cnt != 1) {
+        if (cnt != 1 || StringUtils.isBlank(evalPop(ctx.func_param(0).expr()).toString())) {
             evalNull();
             return;
         }
-        String str = evalPop(ctx.func_param(0).expr()).toString();
-        evalString(str);
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        String dateString = "";
+
+        if (NumberUtils.isNumber(firstStr)) {
+            if (firstStr.length() == 10) {
+                firstStr = new StringBuffer(firstStr).append("000").toString();
+            }
+            Date date = new Date(Long.valueOf(firstStr));
+            SimpleDateFormat customFormat = new SimpleDateFormat(lastStr);
+            dateString = customFormat.format(date);
+        } else {
+            SimpleDateFormat customFormat;
+            String[] split = firstStr.split("\\\\s+");
+            if (split.length > 1) {
+                customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            } else {
+                customFormat = new SimpleDateFormat("yyyy-MM-dd");
+            }
+            try {
+                Date parse = customFormat.parse(firstStr);
+                customFormat = new SimpleDateFormat(lastStr);
+                dateString = customFormat.format(parse);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        evalString(dateString);
     }
 
     /**
