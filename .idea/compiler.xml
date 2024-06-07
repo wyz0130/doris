@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="BUILD_PROCESS_HEAP_SIZE" value="1700" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="fe-core" />
+        <module name="paimon-scanner" />
+        <module name="hive-udf" />
+        <module name="spark-dpp" />
+        <module name="avro-scanner" />
+        <module name="jdbc-scanner" />
+        <module name="max-compute-scanner" />
+        <module name="preload-extensions" />
+        <module name="fe-common" />
+        <module name="java-common" />
+        <module name="hudi-scanner" />
+        <module name="java-udf" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.doris</groupId>
+  <artifactId>hive-udf</artifactId>
+  <version>1.2-SNAPSHOT</version>
+  <description>The Apache Software Foundation provides support for the Apache community of open-source software projects.
+    The Apache projects are characterized by a collaborative, consensus based development process, an open and
+    pragmatic software license, and a desire to create high quality software that leads the way in its field.
+    We consider ourselves not simply a group of projects sharing a server, but rather a community of developers
+    and users.</description>
+  <url>https://doris.apache.org/hive-udf/</url>
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>https://www.apache.org/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>Apache 2.0 License</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <mailingLists>
+    <mailingList>
+      <name>Dev Mailing List</name>
+      <subscribe>dev-subscribe@doris.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@doris.apache.org</unsubscribe>
+      <post>dev@doris.apache.org</post>
+    </mailingList>
+    <mailingList>
+      <name>Commits Mailing List</name>
+      <subscribe>commits-subscribe@doris.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@doris.apache.org</unsubscribe>
+      <post>commits@doris.apache.org</post>
+    </mailingList>
+  </mailingLists>
+  <scm>
+    <connection>scm:git:https://git@github.com/apache/doris.git/hive-udf</connection>
+    <developerConnection>scm:git:https://git@github.com/apache/doris.git/hive-udf</developerConnection>
+    <url>scm:git:https://git@github.com/apache/doris.git/hive-udf</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/apache/doris/issues</url>
+  </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>apache.releases.https</id>
+      <name>Apache Release Distribution Repository</name>
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>apache.snapshots.https</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <properties>
+    <aws-java-sdk.version>1.12.669</aws-java-sdk.version>
+    <parquet.version>1.13.1</parquet.version>
+    <commons-cli.version>1.4</commons-cli.version>
+    <snappy-java.version>1.1.10.5</snappy-java.version>
+    <commons-compress.version>1.22</commons-compress.version>
+    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    <commons-codec.version>1.13</commons-codec.version>
+    <presto.hive.version>3.0.0-8</presto.hive.version>
+    <hamcrest.version>2.1</hamcrest.version>
+    <tomcat-embed-core.version>8.5.86</tomcat-embed-core.version>
+    <automaton.version>1.11-8</automaton.version>
+    <jacoco.version>0.8.10</jacoco.version>
+    <grpc.version>1.60.1</grpc.version>
+    <metrics-core.version>4.0.2</metrics-core.version>
+    <gson.version>2.10.1</gson.version>
+    <json-simple.version>1.1.1</json-simple.version>
+    <java-cup.version>0.11-a-czt02-cdh</java-cup.version>
+    <xnio-nio.version>3.8.9.Final</xnio-nio.version>
+    <httpclient.version>4.5.13</httpclient.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <okio.version>3.4.0</okio.version>
+    <protoparser.version>3.1.5</protoparser.version>
+    <project.build.outputTimestamp>2022-12-11T19:18:10Z</project.build.outputTimestamp>
+    <lombok.version>1.18.24</lombok.version>
+    <clickhouse.version>0.4.6</clickhouse.version>
+    <sourceReleaseAssemblyDescriptor>source-release</sourceReleaseAssemblyDescriptor>
+    <RoaringBitmap.version>0.8.13</RoaringBitmap.version>
+    <ranger-plugins-common.version>2.4.0</ranger-plugins-common.version>
+    <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
+    <ojdbc8.version>12.2.0.1</ojdbc8.version>
+    <je.version>18.3.14-doris-SNAPSHOT</je.version>
+    <commons-text.version>1.10.0</commons-text.version>
+    <thrift.version>0.16.0</thrift.version>
+    <minimalJavaBuildVersion>1.8</minimalJavaBuildVersion>
+    <mapreduce.client.version>2.10.1</mapreduce.client.version>
+    <distMgmtReleasesUrl>https://repository.apache.org/service/local/staging/deploy/maven2</distMgmtReleasesUrl>
+    <log4j2.version>2.18.0</log4j2.version>
+    <joda.version>2.8.1</joda.version>
+    <vesoft.client.version>3.0.0</vesoft.client.version>
+    <organization.logo>https://www.apache.org/images/asf_logo_wide_2016.png</organization.logo>
+    <validation-api.version>1.1.0.Final</validation-api.version>
+    <disruptor.version>3.4.4</disruptor.version>
+    <netty-all.version>4.1.104.Final</netty-all.version>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <commons-lang.version>2.6</commons-lang.version>
+    <jflex.version>1.4.3</jflex.version>
+    <jmockit.version>1.49</jmockit.version>
+    <sonar.organization>apache</sonar.organization>
+    <distMgmtReleasesName>Apache Release Distribution Repository</distMgmtReleasesName>
+    <orc.version>1.8.4</orc.version>
+    <snakeyaml.version>2.0</snakeyaml.version>
+    <protoc.artifact.version>3.24.3</protoc.artifact.version>
+    <kryo.version>4.0.2</kryo.version>
+    <zjsonpatch.version>0.2.3</zjsonpatch.version>
+    <grpc.java.artifact>io.grpc:protoc-gen-grpc-java:1.34.0</grpc.java.artifact>
+    <jaxws-api.version>2.3.0</jaxws-api.version>
+    <dlf-metastore-client-hive.version>0.2.14</dlf-metastore-client-hive.version>
+    <immutables.version>2.9.3</immutables.version>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <hadoop.version>3.3.6</hadoop.version>
+    <fabric8.kubernetes.version>6.7.2</fabric8.kubernetes.version>
+    <netty-3-test.version>3.10.6.Final</netty-3-test.version>
+    <paimon.version>0.7.0-incubating</paimon.version>
+    <commons-pool2.version>2.2</commons-pool2.version>
+    <gpg.useagent>true</gpg.useagent>
+    <kafka-clients.version>3.4.0</kafka-clients.version>
+    <fe_ut_parallel>1</fe_ut_parallel>
+    <flatbuffers.version>1.12.0</flatbuffers.version>
+    <surefire.version>2.22.2</surefire.version>
+    <commons-collections.version>3.2.2</commons-collections.version>
+    <grpc-java.version>1.34.0</grpc-java.version>
+    <cglib.version>2.2</cglib.version>
+    <log4j-1.2.version>2.18.0</log4j-1.2.version>
+    <iceberg.version>1.4.3</iceberg.version>
+    <skip.plugin>false</skip.plugin>
+    <commons-validator.version>1.7</commons-validator.version>
+    <project.scm.id>github</project.scm.id>
+    <airlift.version>202</airlift.version>
+    <commons-filerupload.version>1.5</commons-filerupload.version>
+    <protoc.artifact>com.google.protobuf:protoc:3.24.3</protoc.artifact>
+    <nimbusds.version>9.35</nimbusds.version>
+    <guava.version>32.1.2-jre</guava.version>
+    <protobuf.version>3.24.3</protobuf.version>
+    <aspectj.version>1.9.7</aspectj.version>
+    <mariadb-java-client.version>3.0.9</mariadb-java-client.version>
+    <woodstox.version>6.5.1</woodstox.version>
+    <arrow.vector.classifier>shade-format-flatbuffers</arrow.vector.classifier>
+    <distMgmtSnapshotsName>Apache Development Snapshot Repository</distMgmtSnapshotsName>
+    <oshi-core.version>6.4.5</oshi-core.version>
+    <httpcore.version>4.4.15</httpcore.version>
+    <avatica.version>1.22.0</avatica.version>
+    <check.freamework.version>3.42.0</check.freamework.version>
+    <arrow.version>15.0.2</arrow.version>
+    <jetty.version>9.4.53.v20231009</jetty.version>
+    <velocity-engine-core.version>2.3</velocity-engine-core.version>
+    <minimalMavenBuildVersion>3.2.5</minimalMavenBuildVersion>
+    <slf4j.version>2.0.6</slf4j.version>
+    <doris.home>${fe.dir}/../</doris.home>
+    <commons-pool.version>1.5.1</commons-pool.version>
+    <calcite.version>1.33.0</calcite.version>
+    <commons-io.version>2.7</commons-io.version>
+    <distMgmtSnapshotsUrl>https://repository.apache.org/content/repositories/snapshots</distMgmtSnapshotsUrl>
+    <doris.thirdparty>${fe.dir}/../thirdparty</doris.thirdparty>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <kerby.version>2.0.3</kerby.version>
+    <doris.hive.catalog.shade.version>2.0.1</doris.hive.catalog.shade.version>
+    <tree-printer.version>1.2</tree-printer.version>
+    <assembly.tarLongFileMode>posix</assembly.tarLongFileMode>
+    <hive.version>3.1.3</hive.version>
+    <presto.hadoop.version>2.7.4-11</presto.hadoop.version>
+    <generex.version>1.0.1</generex.version>
+    <maven.plugin.tools.version>3.7.0</maven.plugin.tools.version>
+    <objenesis.version>2.1</objenesis.version>
+    <okhttp.version>4.9.3</okhttp.version>
+    <quartz.version>2.3.2</quartz.version>
+    <scala.version>2.12.10</scala.version>
+    <logging-interceptor.version>4.7.2</logging-interceptor.version>
+    <javassist.version>3.18.2-GA</javassist.version>
+    <hikaricp.version>4.0.3</hikaricp.version>
+    <commons-lang3.version>3.9</commons-lang3.version>
+    <jackson.version>2.15.2</jackson.version>
+    <spring.version>2.7.13</spring.version>
+    <avro.version>1.11.3</avro.version>
+    <spark.version>3.4.1</spark.version>
+    <javax.activation.version>1.2.0</javax.activation.version>
+    <hudi.version>0.14.1</hudi.version>
+    <jettison.version>1.5.4</jettison.version>
+    <zookeeper.version>3.9.1</zookeeper.version>
+    <revision>1.2-SNAPSHOT</revision>
+    <maxcompute.version>0.45.2-public</maxcompute.version>
+    <junit.version>5.8.2</junit.version>
+    <hive.common.version>2.3.9</hive.common.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-exec</artifactId>
+      <version>3.1.3</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.doris</groupId>
+      <artifactId>fe-common</artifactId>
+      <version>1.2-SNAPSHOT</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.apache.hive</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>commons-codec</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>com.google.guava</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.aspectj</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.apache.httpcomponents</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.18.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.18.0</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>log4j-core</artifactId>
+          <groupId>org.apache.logging.log4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-1.2-api</artifactId>
+      <version>2.18.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <version>4.2.0</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>snapshots</id>
+      <name>apache snapshots maven repo https</name>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+    </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://repository.apache.org/snapshots</url>
+    </repository>
+  </repositories>
+</project>

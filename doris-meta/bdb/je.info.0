@@ -1,0 +1,413 @@
+2024-05-21 09:13:25.464 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-05-21 09:13:25.469 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-05-21 09:13:25.471 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-05-21 09:13:25.510 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:0
+2024-05-21 09:13:25.511 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-05-21 09:13:25.529 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 0
+2024-05-21 09:13:25.530 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] New node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(-1) unknown to rep group
+2024-05-21 09:13:25.531 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-05-21 09:13:25.531 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Nascent group. fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 is master by virtue of being the first node.
+2024-05-21 09:13:25.531 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-05-21 09:13:25.546 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Successfully added node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) HostPort = 192.168.31.1: 9010 [ELECTABLE]
+2024-05-21 09:13:25.551 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Updated minimum JE group version to 7.5.0
+2024-05-21 09:13:25.552 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-05-21 09:13:25.552 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from MASTER to UNKNOWN
+2024-05-21 09:13:25.552 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-05-21 09:13:25.553 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-05-21 09:13:25.554 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-05-22 00:49:22.472 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-05-22 00:49:22.477 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-05-22 00:49:22.478 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-05-22 00:49:22.518 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:2,320
+2024-05-22 00:49:22.520 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-05-22 00:49:22.542 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-05-22 00:49:22.543 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-05-22 00:49:22.554 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-05-22 00:49:22.555 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-05-22 00:49:22.558 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Wed May 22 08:49:22 CST 2024
+2024-05-22 00:49:22.562 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018f9dc6307e:367a43a2cc57dbe7fb9ebfaa64358316:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-05-22 00:49:22.564 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-05-22 00:49:22.564 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 9ms
+2024-05-22 00:49:22.565 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-05-22 00:49:22.565 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-05-22 00:49:22.565 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-05-22 00:49:22.566 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-05 06:12:29.230 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-05 06:12:29.236 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-05 06:12:29.237 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-05 06:12:29.277 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:2,885
+2024-06-05 06:12:29.278 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-05 06:12:29.300 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-05 06:12:29.300 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-05 06:12:29.313 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-05 06:12:29.313 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-05 06:12:29.316 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Wed Jun 05 14:12:29 CST 2024
+2024-06-05 06:12:29.322 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fe7070a04:e56a07f44f48fde40bb6d5ad92e49061:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-05 06:12:29.325 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-05 06:12:29.325 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 12ms
+2024-06-05 06:12:29.326 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-05 06:12:29.326 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-05 06:12:29.326 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-05 06:12:29.328 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-05 08:40:06.799 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-05 08:40:06.805 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-05 08:40:06.805 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-05 08:40:06.859 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:3,214
+2024-06-05 08:40:06.860 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-05 08:40:06.878 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-05 08:40:06.878 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-05 08:40:06.888 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-05 08:40:06.888 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-05 08:40:06.891 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Wed Jun 05 16:40:06 CST 2024
+2024-06-05 08:40:06.895 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fe78e31eb:9df3e160c606d196cdabd773ff27a8c3:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-05 08:40:06.897 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-05 08:40:06.897 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 9ms
+2024-06-05 08:40:06.897 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-05 08:40:06.897 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-05 08:40:06.897 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-05 08:40:06.899 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-05 08:41:07.540 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=1 dbId=-259 dbName=1
+2024-06-05 08:41:07.543 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=1 scanned=932 dbId=-259 dbName=1
+2024-06-06 01:37:44.035 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 01:37:44.042 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 01:37:44.042 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 01:37:44.092 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:4,077
+2024-06-06 01:37:44.094 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 01:37:44.119 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 01:37:44.120 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 01:37:44.133 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 01:37:44.133 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 01:37:44.136 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 09:37:44 CST 2024
+2024-06-06 01:37:44.143 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018feb31dac9:8176797927c64898d7c8d82be82b7fd3:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 01:37:44.145 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 01:37:44.146 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 13ms
+2024-06-06 01:37:44.146 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 01:37:44.146 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 01:37:44.146 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 01:37:44.147 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 01:38:44.780 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=2 dbId=-260 dbName=925
+2024-06-06 01:38:44.782 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=2 scanned=228 dbId=-260 dbName=925
+2024-06-06 06:29:47.726 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 06:29:47.732 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 06:29:47.733 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 06:29:47.768 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:4,789
+2024-06-06 06:29:47.769 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 06:29:47.789 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 06:29:47.789 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 06:29:47.800 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 06:29:47.800 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 06:29:47.802 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 14:29:47 CST 2024
+2024-06-06 06:29:47.808 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec3d3e9a:683a0501c3314adc3aa8ed39ed3aa9fe:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 06:29:47.810 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 06:29:47.810 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 10ms
+2024-06-06 06:29:47.810 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 06:29:47.811 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 06:29:47.811 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 06:29:47.812 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 06:30:48.415 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=3 dbId=-261 dbName=1150
+2024-06-06 06:30:48.416 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=3 scanned=138 dbId=-261 dbName=1150
+2024-06-06 06:38:25.298 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 06:38:25.302 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 06:38:25.303 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 06:38:25.336 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:5,176
+2024-06-06 06:38:25.337 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 06:38:25.354 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 06:38:25.354 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 06:38:25.364 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 06:38:25.364 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 06:38:25.368 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 14:38:25 CST 2024
+2024-06-06 06:38:25.373 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec452458:579dd5a40428199ca6d3d12fd5766ee8:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 06:38:25.375 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 06:38:25.375 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 11ms
+2024-06-06 06:38:25.375 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 06:38:25.375 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 06:38:25.376 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 06:38:25.377 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 06:39:30.240 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=4 dbId=-262 dbName=1286
+2024-06-06 06:39:30.242 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=4 scanned=325 dbId=-262 dbName=1286
+2024-06-06 06:50:04.736 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 06:50:04.741 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 06:50:04.742 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 06:50:04.777 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:5,574
+2024-06-06 06:50:04.778 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 06:50:04.796 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 06:50:04.796 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 06:50:04.807 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 06:50:04.807 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 06:50:04.810 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 14:50:04 CST 2024
+2024-06-06 06:50:04.816 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec4fd08a:19a39fd2a90e102dbff23db3abad3be6:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 06:50:04.818 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 06:50:04.819 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 12ms
+2024-06-06 06:50:04.819 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 06:50:04.819 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 06:50:04.819 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 06:50:04.821 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 06:51:05.284 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=5 dbId=-264 dbName=1607
+2024-06-06 06:51:05.285 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=5 scanned=276 dbId=-264 dbName=1607
+2024-06-06 06:52:42.972 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 06:52:42.976 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 06:52:42.977 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 06:52:43.015 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:5,741
+2024-06-06 06:52:43.016 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 06:52:43.033 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 06:52:43.033 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 06:52:43.044 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 06:52:43.044 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 06:52:43.048 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 14:52:43 CST 2024
+2024-06-06 06:52:43.053 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec523aa8:acb78650a59b91c5db1b112b2c013990:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 06:52:43.055 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 06:52:43.055 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 11ms
+2024-06-06 06:52:43.055 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 06:52:43.055 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 06:52:43.055 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 06:52:43.057 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 06:53:43.521 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=6 dbId=-265 dbName=1880
+2024-06-06 06:53:43.522 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=6 scanned=165 dbId=-265 dbName=1880
+2024-06-06 06:56:39.483 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 06:56:39.488 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 06:56:39.488 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 06:56:39.524 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:5,882
+2024-06-06 06:56:39.525 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 06:56:39.543 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 06:56:39.544 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 06:56:39.555 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 06:56:39.555 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 06:56:39.558 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 14:56:39 CST 2024
+2024-06-06 06:56:39.563 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec55d686:005d573cf9c719762efc4b796501f687:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 06:56:39.565 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 06:56:39.565 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 10ms
+2024-06-06 06:56:39.565 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 06:56:39.566 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 06:56:39.566 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 06:56:39.567 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 06:57:40.075 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=7 dbId=-266 dbName=2043
+2024-06-06 06:57:40.077 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=7 scanned=165 dbId=-266 dbName=2043
+2024-06-06 07:04:25.932 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 07:04:25.938 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 07:04:25.938 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 07:04:25.975 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:6,200
+2024-06-06 07:04:25.976 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 07:04:25.994 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 07:04:25.994 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 07:04:26.004 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 07:04:26.005 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 07:04:26.009 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 15:04:26 CST 2024
+2024-06-06 07:04:26.014 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec5cf499:86ad41c7e214917277dd322acd309c11:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 07:04:26.016 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 07:04:26.016 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 11ms
+2024-06-06 07:04:26.016 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 07:04:26.016 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 07:04:26.017 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 07:04:26.018 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 07:05:26.662 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=8 dbId=-267 dbName=2206
+2024-06-06 07:05:26.664 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=8 scanned=74 dbId=-267 dbName=2206
+2024-06-06 07:07:07.707 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 07:07:07.712 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 07:07:07.712 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 07:07:07.755 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:6,279
+2024-06-06 07:07:07.756 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 07:07:07.778 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 07:07:07.778 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 07:07:07.790 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 07:07:07.790 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 07:07:07.793 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 15:07:07 CST 2024
+2024-06-06 07:07:07.798 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec5f6c91:5b71470438bb022f929669da7a7470c8:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 07:07:07.800 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 07:07:07.801 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 11ms
+2024-06-06 07:07:07.801 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 07:07:07.801 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 07:07:07.801 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 07:07:07.802 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 07:08:08.405 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=9 dbId=-268 dbName=2279
+2024-06-06 07:08:08.407 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=9 scanned=57 dbId=-268 dbName=2279
+2024-06-06 07:10:15.201 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 07:10:15.206 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 07:10:15.206 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 07:10:15.245 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:6,465
+2024-06-06 07:10:15.246 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 07:10:15.266 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 07:10:15.266 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 07:10:15.277 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 07:10:15.278 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 07:10:15.281 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 15:10:15 CST 2024
+2024-06-06 07:10:15.287 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec6248f1:5b42a773e7242fceae8c8e9c4396c266:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 07:10:15.289 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 07:10:15.290 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 12ms
+2024-06-06 07:10:15.290 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 07:10:15.290 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 07:10:15.290 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 07:10:15.292 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 07:11:15.865 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=10 dbId=-269 dbName=2335
+2024-06-06 07:11:15.868 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=10 scanned=136 dbId=-269 dbName=2335
+2024-06-06 07:11:34.149 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 07:11:34.154 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 07:11:34.154 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 07:11:34.197 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:6,509
+2024-06-06 07:11:34.198 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 07:11:34.215 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 07:11:34.215 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 07:11:34.226 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 07:11:34.227 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 07:11:34.230 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 15:11:34 CST 2024
+2024-06-06 07:11:34.235 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec637d56:1590488a0ced291428ee609b76ea657a:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 07:11:34.237 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 07:11:34.237 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 10ms
+2024-06-06 07:11:34.237 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 07:11:34.238 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 07:11:34.238 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 07:11:34.239 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 07:12:34.783 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=11 dbId=-270 dbName=2469
+2024-06-06 07:12:34.785 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=11 scanned=31 dbId=-270 dbName=2469
+2024-06-06 07:12:59.321 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 07:12:59.325 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 07:12:59.326 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 07:12:59.360 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:6,640
+2024-06-06 07:12:59.361 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 07:12:59.379 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 07:12:59.379 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 07:12:59.390 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 07:12:59.390 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 07:12:59.393 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 15:12:59 CST 2024
+2024-06-06 07:12:59.398 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec64ca01:1bff5eb078b5629581600c5b6c7a7055:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 07:12:59.400 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 07:12:59.400 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 10ms
+2024-06-06 07:12:59.400 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 07:12:59.401 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 07:12:59.401 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 07:12:59.402 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 07:14:44.781 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=12 dbId=-271 dbName=2499
+2024-06-06 07:14:44.784 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=12 scanned=81 dbId=-271 dbName=2499
+2024-06-06 07:46:39.385 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 07:46:39.389 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 07:46:39.390 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 07:46:39.424 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:7,608
+2024-06-06 07:46:39.425 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 07:46:39.443 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 07:46:39.444 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 07:46:39.453 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 07:46:39.454 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 07:46:39.457 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 15:46:39 CST 2024
+2024-06-06 07:46:39.462 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fec839ce1:fb8eaa34dc6be9edd05e75e683ad4ae7:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 07:46:39.464 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 07:46:39.464 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 10ms
+2024-06-06 07:46:39.464 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 07:46:39.464 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 07:46:39.465 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 07:46:39.466 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 07:47:40.060 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=13 dbId=-272 dbName=2579
+2024-06-06 07:47:40.062 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=13 scanned=17 dbId=-272 dbName=2579
+2024-06-06 08:51:59.687 UTC 警告 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] FSync time of 5067 ms exceeds limit (5000 ms)
+2024-06-06 09:05:03.068 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 09:05:03.073 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 09:05:03.074 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 09:05:03.109 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:10,102
+2024-06-06 09:05:03.110 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 09:05:03.128 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 09:05:03.128 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 09:05:03.139 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 09:05:03.139 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 09:05:03.142 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 17:05:03 CST 2024
+2024-06-06 09:05:03.148 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018feccb62a7:70a274f8221a79391608d77df46206d4:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 09:05:03.149 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 09:05:03.150 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 11ms
+2024-06-06 09:05:03.150 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 09:05:03.150 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 09:05:03.150 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 09:05:03.151 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 09:06:13.442 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 09:06:13.448 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 09:06:13.448 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 09:06:13.495 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:10,138
+2024-06-06 09:06:13.496 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 09:06:13.515 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 09:06:13.516 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 09:06:13.528 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 09:06:13.528 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 09:06:13.532 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 17:06:13 CST 2024
+2024-06-06 09:06:13.539 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018feccc759c:50d86576119641707486b30e09fc28bf:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 09:06:13.541 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 09:06:13.541 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 13ms
+2024-06-06 09:06:13.542 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 09:06:13.542 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 09:06:13.542 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 09:06:13.543 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 09:06:40.145 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 09:06:40.151 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 09:06:40.151 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 09:06:40.187 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:10,154
+2024-06-06 09:06:40.188 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 09:06:40.206 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 09:06:40.206 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 09:06:40.216 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 09:06:40.216 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 09:06:40.219 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 17:06:40 CST 2024
+2024-06-06 09:06:40.224 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fecccdddb:a5f7f0880d4a4481ac80a55e8128a7c2:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 09:06:40.226 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 09:06:40.226 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 10ms
+2024-06-06 09:06:40.227 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 09:06:40.227 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 09:06:40.227 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 09:06:40.228 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 09:13:43.650 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=14 dbId=-273 dbName=2595
+2024-06-06 09:13:43.653 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=14 scanned=59 dbId=-273 dbName=2595
+2024-06-06 09:14:34.725 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 09:14:34.730 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 09:14:34.731 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 09:14:34.772 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:10,228
+2024-06-06 09:14:34.773 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 09:14:34.794 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 09:14:34.795 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 09:14:34.809 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 09:14:34.809 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 09:14:34.813 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 17:14:34 CST 2024
+2024-06-06 09:14:34.820 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fecd41bbe:84189f10db722f3c99e82252333d32ab:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 09:14:34.821 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 09:14:34.822 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 13ms
+2024-06-06 09:14:34.822 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 09:14:34.822 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 09:14:34.822 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 09:14:34.823 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 09:15:35.443 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=15 dbId=-274 dbName=2653
+2024-06-06 09:15:35.445 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=15 scanned=390 dbId=-274 dbName=2653
+2024-06-06 09:16:29.180 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 09:16:29.187 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 09:16:29.188 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 09:16:29.238 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:10,370
+2024-06-06 09:16:29.240 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 09:16:29.264 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 09:16:29.265 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 09:16:29.279 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 09:16:29.280 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 09:16:29.285 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 17:16:29 CST 2024
+2024-06-06 09:16:29.293 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fecd5dae5:423ff425af1672d841790aa41745f715:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 09:16:29.295 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 09:16:29.296 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 16ms
+2024-06-06 09:16:29.296 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 09:16:29.297 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 09:16:29.297 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 09:16:29.299 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 09:17:29.896 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=16 dbId=-275 dbName=3039
+2024-06-06 09:17:29.899 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=16 scanned=986 dbId=-275 dbName=3039
+2024-06-06 09:17:29.900 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=17 dbId=-276 dbName=4016
+2024-06-06 09:17:29.900 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=17 scanned=14 dbId=-276 dbName=4016
+2024-06-06 09:17:29.901 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=18 dbId=-277 dbName=4029
+2024-06-06 09:17:29.901 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=18 scanned=6 dbId=-277 dbName=4029
+2024-06-06 09:19:07.641 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] No server auth method
+2024-06-06 09:19:07.646 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started ServiceDispatcher. HostPort=yz:9010
+2024-06-06 09:19:07.647 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DataChannel factory: com.sleepycat.je.rep.utilint.net.SimpleChannelFactory
+2024-06-06 09:19:07.685 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] DTVLSN at start:10,458
+2024-06-06 09:19:07.686 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:NullNode(-1) state change from DETACHED to UNKNOWN
+2024-06-06 09:19:07.703 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Current group size: 1
+2024-06-06 09:19:07.704 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Existing node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 querying for a current master.
+2024-06-06 09:19:07.714 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Node fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49 started
+2024-06-06 09:19:07.714 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election initiated; election #1
+2024-06-06 09:19:07.716 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Started election thread Thu Jun 06 17:19:07 CST 2024
+2024-06-06 09:19:07.721 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Winning proposal: Proposal(0000018fecd845c4:dfb7362c96ea892e70607e8e2be2d352:00000001) Value: Value:192.168.31.1$$$9010$$$fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49$$$1
+2024-06-06 09:19:07.722 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Master changed to fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49
+2024-06-06 09:19:07.723 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election finished. Elapsed time: 9ms
+2024-06-06 09:19:07.723 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Election thread exited. Group master: fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1)
+2024-06-06 09:19:07.723 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] node:fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49(1) state change from UNKNOWN to MASTER
+2024-06-06 09:19:07.723 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Feeder manager accepting requests.
+2024-06-06 09:19:07.725 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Joining group as master
+2024-06-06 09:20:08.187 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] Start DB remove/truncate scan, id=19 dbId=-278 dbName=4034
+2024-06-06 09:20:08.188 UTC 信息 [fe_c513ca11_ae3a_4ff6_91f5_ff9b909a3d49] End DB remove/truncate scan, id=19 scanned=30 dbId=-278 dbName=4034
