@@ -22,14 +22,22 @@ package org.apache.doris.plsql.functions;
 
 import org.apache.doris.nereids.PLParser.Expr_func_paramsContext;
 import org.apache.doris.nereids.PLParser.Expr_spec_funcContext;
+import org.apache.doris.nereids.util.DateUtils;
 import org.apache.doris.plsql.Exec;
+import org.apache.doris.plsql.Utils;
 import org.apache.doris.plsql.Var;
 import org.apache.doris.plsql.executor.QueryExecutor;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -56,11 +64,13 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
         f.specMap.put("SYSDATE", this::currentTimestamp);
+        f.specMap.put("CURDATE", this::currentDate);
+        f.specMap.put("DATE_ADD", this::dateAdd);
 
         f.specSqlMap.put("CURRENT_DATE",
-                (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentDateSql);
+                         (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentDateSql);
         f.specSqlMap.put("CURRENT_TIMESTAMP",
-                (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentTimestampSql);
+                         (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentTimestampSql);
     }
 
     /**
@@ -73,8 +83,7 @@ public class FunctionDatetime extends BuiltinFunctions {
     public static Var currentDate() {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String s = f.format(Calendar.getInstance().getTime());
-        return new Var(org.apache.doris.plsql.Var.Type.DATE,
-                org.apache.doris.plsql.Utils.toDate(s));
+        return new Var(org.apache.doris.plsql.Var.Type.DATE, org.apache.doris.plsql.Utils.toDate(s));
     }
 
     /**
@@ -96,6 +105,9 @@ public class FunctionDatetime extends BuiltinFunctions {
         evalVar(currentTimestamp(precision));
     }
 
+    /**
+     * currentTimestamp
+     */
     public static Var currentTimestamp(int precision) {
         String format = "yyyy-MM-dd HH:mm:ss";
         if (precision > 0 && precision <= 3) {
@@ -202,5 +214,78 @@ public class FunctionDatetime extends BuiltinFunctions {
 
     public void currentTimeMillis(Expr_func_paramsContext ctx) {
         evalVar(new Var(System.currentTimeMillis()));
+    }
+
+    /**
+     * date_format function
+     */
+    public void dateFormat(Expr_func_paramsContext ctx) {
+        int cnt = getParamCount(ctx);
+        if (cnt != 1) {
+            evalNull();
+            return;
+        }
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        SimpleDateFormat customFormat;
+        Date fistDate;
+        String[] split = firstStr.split("\\s+");
+        if (split.length > 1) {
+            customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        } else {
+            customFormat = new SimpleDateFormat("yyyy-MM-dd");
+        }
+        try {
+            fistDate = customFormat.parse(firstStr);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        LocalDateTime dateTime = fistDate.toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
+        DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(lastStr);
+        DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter();
+        String format = dateTime.format(formatter);
+        evalString(format);
+    }
+
+    /**
+     * date_add function
+     */
+    private void dateAdd(Expr_spec_funcContext ctx) {
+        int cnt = ctx.expr().size();
+        if (cnt != 1) {
+            evalNull();
+            return;
+        }
+        String firstStr = evalPop(ctx.expr(0)).toString();
+        SimpleDateFormat customFormat;
+        Date fistDate;
+        String[] split = firstStr.split("\\s+");
+
+        if (split.length > 1) {
+            customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        } else {
+            customFormat = new SimpleDateFormat("yyyy-MM-dd");
+        }
+        try {
+            fistDate = customFormat.parse(firstStr);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        String lastStr = evalPop(ctx.expr(1)).toString();
+        String[] typeSplit = lastStr.split("\\s+");
+        if (typeSplit.length != 3) {
+            throw new RuntimeException("Check the parameter type:" + lastStr);
+        } else {
+            if (StringUtils.isBlank(typeSplit[1]) || StringUtils.isBlank(typeSplit[2])) {
+                throw new RuntimeException("Check the parameter type:" + lastStr);
+            }
+        }
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(fistDate);
+        rightNow.add(Utils.formatTimeUnit(typeSplit[2].toUpperCase()), Integer.valueOf(typeSplit[1]));
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = dateFormat2.format(rightNow.getTime());
+        System.out.println(format);
+        evalString(format);
     }
 }

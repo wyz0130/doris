@@ -22,6 +22,7 @@ package org.apache.doris.plsql;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class Utils {
 
@@ -326,5 +327,26 @@ public class Utils {
      */
     static <T> String join(T[] array, String separator) {
         return org.antlr.v4.runtime.misc.Utils.join(array, separator);
+    }
+
+    public static Integer formatTimeUnit(String timeUnit) {
+        switch (timeUnit) {
+            case "YEAR":
+                return Calendar.YEAR;
+            case "MONTH":
+                return Calendar.MONTH;
+            case "DAY":
+                return Calendar.DATE;
+            case "HOUR":
+                return Calendar.HOUR;
+            case "MINUTE":
+                return Calendar.MINUTE;
+            case "SECOND":
+                return Calendar.SECOND;
+            case "MICROSECOND":
+                return Calendar.MILLISECOND;
+            default:
+                return 0;
+        }
     }
 }

@@ -24,6 +24,7 @@ package org.apache.doris.plsql.functions;
 import org.apache.doris.nereids.PLParser.Expr_func_paramsContext;
 import org.apache.doris.nereids.PLParser.Expr_spec_funcContext;
 import org.apache.doris.plsql.Exec;
+import org.apache.doris.plsql.Var;
 import org.apache.doris.plsql.executor.QueryExecutor;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,9 +44,9 @@ public class FunctionString extends BuiltinFunctions {
      */
     @Override
     public void register(BuiltinFunctions f) {
-        System.out.println(f.toString());
         f.map.put("CONCAT", this::concat);
-        f.map.put("CONCAT1", this::concat);
+        f.map.put("||", this::concat);
+        f.map.put("CONCATWS", this::concatWs);
         f.map.put("CHAR", this::char_);
         f.map.put("INSTR", this::instr);
         f.map.put("LEN", this::len);
@@ -73,6 +74,32 @@ public class FunctionString extends BuiltinFunctions {
             org.apache.doris.plsql.Var c = evalPop(ctx.func_param(i).expr());
             if (!c.isNull()) {
                 val.append(c.toString());
+                nulls = false;
+            }
+        }
+        if (nulls) {
+            evalNull();
+        } else {
+            evalString(val);
+        }
+    }
+
+    /**
+     * concatWs function
+     */
+    void concatWs(Expr_func_paramsContext ctx) {
+        StringBuilder val = new StringBuilder();
+        int cnt = getParamCount(ctx);
+        boolean nulls = true;
+        Var first = evalPop(ctx.func_param(0).expr());
+        if (first.isNull()) {
+            evalNull();
+            return;
+        }
+        for (int i = 1; i < cnt; i++) {
+            org.apache.doris.plsql.Var c = evalPop(ctx.func_param(i).expr());
+            if (!c.isNull()) {
+                val.append(first).append(c);
                 nulls = false;
             }
         }
@@ -296,7 +323,7 @@ public class FunctionString extends BuiltinFunctions {
             dateString = customFormat.format(date);
         } else {
             SimpleDateFormat customFormat;
-            String[] split = firstStr.split("\\\\s+");
+            String[] split = firstStr.split("\\s+");
             if (split.length > 1) {
                 customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             } else {
