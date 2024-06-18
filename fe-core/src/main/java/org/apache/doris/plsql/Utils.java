@@ -22,6 +22,8 @@ package org.apache.doris.plsql;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Utils {
@@ -348,5 +350,29 @@ public class Utils {
             default:
                 return 0;
         }
+    }
+
+    public static java.util.Date format(String strDate) {
+        SimpleDateFormat customFormat;
+        java.util.Date fistDate;
+        String[] split = strDate.split("\\s+");
+
+        if (split.length > 1) {
+            customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        } else {
+            customFormat = new SimpleDateFormat("yyyy-MM-dd");
+        }
+        try {
+            fistDate = customFormat.parse(strDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return fistDate;
+    }
+
+    public static String format(java.util.Date date, String format) {
+        SimpleDateFormat customFormat = new SimpleDateFormat(format);
+        String strDate = customFormat.format(date);
+        return strDate;
     }
 }

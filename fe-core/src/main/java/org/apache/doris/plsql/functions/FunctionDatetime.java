@@ -60,12 +60,15 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("TO_TIMESTAMP", this::toTimestamp);
         f.map.put("UNIX_TIMESTAMP", this::unixTimestamp);
         f.map.put("CURRENT_TIME_MILLIS", this::currentTimeMillis);
+        f.map.put("DATE_FORMAT", this::dateFormat);
+        f.map.put("DATE_ADD", this::dateAdd);
+        f.map.put("LAST_DAY", this::lastDay);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
         f.specMap.put("SYSDATE", this::currentTimestamp);
         f.specMap.put("CURDATE", this::currentDate);
-        f.specMap.put("DATE_ADD", this::dateAdd);
+
 
         f.specSqlMap.put("CURRENT_DATE",
                          (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentDateSql);
@@ -250,13 +253,13 @@ public class FunctionDatetime extends BuiltinFunctions {
     /**
      * date_add function
      */
-    private void dateAdd(Expr_spec_funcContext ctx) {
-        int cnt = ctx.expr().size();
+    private void dateAdd(Expr_func_paramsContext ctx) {
+        int cnt = getParamCount(ctx);
         if (cnt != 1) {
             evalNull();
             return;
         }
-        String firstStr = evalPop(ctx.expr(0)).toString();
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
         SimpleDateFormat customFormat;
         Date fistDate;
         String[] split = firstStr.split("\\s+");
@@ -271,7 +274,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        String lastStr = evalPop(ctx.expr(1)).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
         String[] typeSplit = lastStr.split("\\s+");
         if (typeSplit.length != 3) {
             throw new RuntimeException("Check the parameter type:" + lastStr);
@@ -287,5 +290,19 @@ public class FunctionDatetime extends BuiltinFunctions {
         String format = dateFormat2.format(rightNow.getTime());
         System.out.println(format);
         evalString(format);
+    }
+
+    /**
+     * last_day function
+     */
+    private void lastDay(Expr_func_paramsContext ctx) {
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        Date format = Utils.format(firstStr);
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(format);
+        rightNow.set(Calendar.DAY_OF_MONTH, rightNow.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date time = rightNow.getTime();
+        String lastDay = Utils.format(time, "yyyy-MM-dd");
+        evalString(lastDay);
     }
 }
