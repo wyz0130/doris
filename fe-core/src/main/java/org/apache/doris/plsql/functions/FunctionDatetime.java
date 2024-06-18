@@ -64,6 +64,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("DATE_ADD", this::dateAdd);
         f.map.put("LAST_DAY", this::lastDay);
         f.map.put("TO_DATE", this::toDate);
+        f.map.put("STR_TO_DATE", this::strToDate);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
@@ -319,6 +320,26 @@ public class FunctionDatetime extends BuiltinFunctions {
             long timeInMs = new SimpleDateFormat(firstStrFormat).parse(firstStr).getTime();
             String lastDay = Utils.format(new Date(timeInMs), lastStr);
             evalString(lastDay);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * strToDate   str_to_date("2024-06-18","format")    20240618
+     * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
+     */
+    private void strToDate(Expr_func_paramsContext ctx) {
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        String firstStrFormat = Utils.getFormat(firstStr);
+        try {
+            long timeInMs = new SimpleDateFormat(firstStrFormat).parse(firstStr).getTime();
+            LocalDateTime dateTime = new Date(timeInMs).toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
+            DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(lastStr);
+            DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter();
+            String format = dateTime.format(formatter);
+            evalString(format);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
