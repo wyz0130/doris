@@ -375,4 +375,16 @@ public class Utils {
         String strDate = customFormat.format(date);
         return strDate;
     }
+
+    public static String getFormat(String strDate) {
+        String format;
+        String[] split = strDate.split("\\s+");
+
+        if (split.length > 1) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        } else {
+            format = "yyyy-MM-dd";
+        }
+        return format;
+    }
 }

@@ -63,6 +63,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("DATE_FORMAT", this::dateFormat);
         f.map.put("DATE_ADD", this::dateAdd);
         f.map.put("LAST_DAY", this::lastDay);
+        f.map.put("TO_DATE", this::toDate);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
@@ -304,5 +305,22 @@ public class FunctionDatetime extends BuiltinFunctions {
         Date time = rightNow.getTime();
         String lastDay = Utils.format(time, "yyyy-MM-dd");
         evalString(lastDay);
+    }
+
+    /**
+     * toDate to_date("2024-06-18","format")  20240618
+     * format Support { yyyy-MM-dd、yyyy-MM-dd HH:mm:ss 、yyyy ...}
+     */
+    private void toDate(Expr_func_paramsContext ctx) {
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        String firstStrFormat = Utils.getFormat(firstStr);
+        try {
+            long timeInMs = new SimpleDateFormat(firstStrFormat).parse(firstStr).getTime();
+            String lastDay = Utils.format(new Date(timeInMs), lastStr);
+            evalString(lastDay);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
