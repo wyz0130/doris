@@ -30,6 +30,7 @@ import org.apache.doris.plsql.executor.QueryExecutor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,6 +59,7 @@ public class FunctionString extends BuiltinFunctions {
         f.map.put("SUBSTRING", this::substr);
         f.map.put("TO_CHAR", this::toChar);
         f.map.put("UPPER", this::upper);
+        f.map.put("SIGN", this::sign);
 
         f.specMap.put("SUBSTRING", this::substring);
         f.specMap.put("TRIM", this::trim);
@@ -350,5 +352,32 @@ public class FunctionString extends BuiltinFunctions {
         }
         String str = evalPop(ctx.func_param(0).expr()).toString().toUpperCase();
         evalString(str);
+    }
+
+    /**
+     * sign function
+     */
+    void sign(Expr_func_paramsContext ctx) {
+        if (ctx.func_param().size() != 1) {
+            evalNull();
+            return;
+        }
+        String strNub = evalPop(ctx.func_param(0).expr()).toString();
+        if (!NumberUtils.isNumber(strNub)) {
+            evalNull();
+            return;
+        }
+        BigDecimal bigDecimal = new BigDecimal(strNub);
+        if (bigDecimal.equals(new BigDecimal(0))) {
+            evalInt(0);
+            return;
+        }
+        if (bigDecimal.equals(bigDecimal.abs())) {
+            evalInt(1);
+            return;
+        }
+        if (!bigDecimal.equals(bigDecimal.abs())) {
+            evalInt(-1);
+        }
     }
 }
