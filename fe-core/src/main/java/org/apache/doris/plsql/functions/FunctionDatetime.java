@@ -41,6 +41,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import javax.script.ScriptException;
+
 
 public class FunctionDatetime extends BuiltinFunctions {
     public FunctionDatetime(Exec e, QueryExecutor queryExecutor) {
@@ -65,6 +67,8 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("LAST_DAY", this::lastDay);
         f.map.put("TO_DATE", this::toDate);
         f.map.put("STR_TO_DATE", this::strToDate);
+        f.map.put("ADD_MONTHS", this::addMonths);
+        f.map.put("TRUNC", this::trunc);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
@@ -72,8 +76,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.specMap.put("CURDATE", this::currentDate);
 
 
-        f.specSqlMap.put("CURRENT_DATE",
-                         (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentDateSql);
+        f.specSqlMap.put("CURRENT_DATE", (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentDateSql);
         f.specSqlMap.put("CURRENT_TIMESTAMP",
                          (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentTimestampSql);
     }
@@ -344,4 +347,51 @@ public class FunctionDatetime extends BuiltinFunctions {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * addMonths   add_months(date,number)
+     */
+    private void addMonths(Expr_func_paramsContext ctx) {
+        if (ctx.func_param().size() != 2) {
+            evalNull();
+            return;
+        }
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        Date format = Utils.format(firstStr);
+        Integer count = null;
+        try {
+            count = Utils.arithmeticExpression(lastStr);
+        } catch (ScriptException e) {
+            evalNull();
+            return;
+        }
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(format);
+        rightNow.add(Calendar.MONTH, count);
+        Date time = rightNow.getTime();
+        String lastDay = Utils.format(time, Utils.getFormat(firstStr));
+        evalString(lastDay);
+    }
+
+
+    /**
+     * trunc(date/datetime ,type)
+     * type {yyyy/year ,mm/month ,dd ,hh ,mi }
+     */
+    private void trunc(Expr_func_paramsContext ctx) {
+        if (ctx.func_param().size() != 2) {
+            evalNull();
+            return;
+        }
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        String value = Utils.dateTrunc(firstStr, lastStr);
+        if (value == null) {
+            evalNull();
+            return;
+        }
+        evalString(value);
+    }
+
 }

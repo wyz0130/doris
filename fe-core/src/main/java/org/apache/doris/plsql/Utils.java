@@ -24,7 +24,17 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 
 public class Utils {
 
@@ -386,5 +396,56 @@ public class Utils {
             format = "yyyy-MM-dd";
         }
         return format;
+    }
+
+    public static Integer arithmeticExpression(String expression) throws ScriptException {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("JavaScript");
+        Object result = engine.eval(expression);
+        if (result != null) {
+            return Integer.valueOf(String.valueOf(result));
+        }
+        return 0;
+    }
+
+    public static String dateTrunc(String dateString, String dateType) {
+        java.util.Date date = Utils.format(dateString);
+        String formatType = Utils.getFormat(dateString);
+        Instant instant = date.toInstant();
+        LocalDateTime dateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zonedDateTime;
+        java.util.Date truncDate;
+        switch (dateType.toLowerCase()) {
+            case "year":
+            case "yyyy":
+                dateTime = dateTime.toLocalDate().with(TemporalAdjusters.firstDayOfYear()).atStartOfDay();
+                zonedDateTime = dateTime.atZone(zoneId);
+                truncDate = Date.from(zonedDateTime.toInstant());
+                return Utils.format(truncDate, formatType);
+            case "month":
+            case "mm":
+                dateTime = YearMonth.from(dateTime).atDay(1).atStartOfDay();
+                zonedDateTime = dateTime.atZone(zoneId);
+                truncDate = Date.from(zonedDateTime.toInstant());
+                return Utils.format(truncDate, formatType);
+            case "dd":
+                dateTime = dateTime.toLocalDate().atStartOfDay();
+                zonedDateTime = dateTime.atZone(zoneId);
+                truncDate = Date.from(zonedDateTime.toInstant());
+                return Utils.format(truncDate, formatType);
+            case "hh":
+                dateTime = dateTime.withMinute(0).withSecond(0).withNano(0);
+                zonedDateTime = dateTime.atZone(zoneId);
+                truncDate = Date.from(zonedDateTime.toInstant());
+                return Utils.format(truncDate, formatType);
+            case "mi":
+                dateTime = dateTime.withSecond(0).withNano(0);
+                zonedDateTime = dateTime.atZone(zoneId);
+                truncDate = Date.from(zonedDateTime.toInstant());
+                return Utils.format(truncDate, formatType);
+            default:
+                return null;
+        }
     }
 }
