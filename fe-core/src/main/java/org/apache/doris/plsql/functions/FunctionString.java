@@ -60,6 +60,7 @@ public class FunctionString extends BuiltinFunctions {
         f.map.put("TO_CHAR", this::toChar);
         f.map.put("UPPER", this::upper);
         f.map.put("SIGN", this::sign);
+        f.map.put("DECODE", this::decode);
 
         f.specMap.put("SUBSTRING", this::substring);
         f.specMap.put("TRIM", this::trim);
@@ -379,5 +380,43 @@ public class FunctionString extends BuiltinFunctions {
         if (!bigDecimal.equals(bigDecimal.abs())) {
             evalInt(-1);
         }
+    }
+
+    /**
+     * decode function   expression=value，则输出result1，否则输出result2
+     */
+    void decode(Expr_func_paramsContext ctx) {
+        if (ctx.func_param().size() != 1) {
+            evalNull();
+            return;
+        }
+        int size = ctx.func_param().size();
+        String defalut = evalPop(ctx.func_param(size - 1).expr()).toString();
+        for (int i = 1; i < ctx.func_param().size() - 1; i += 2) {
+            if (evalPop(ctx.func_param(0).expr()).toString().equals(evalPop(ctx.func_param(i).expr()).toString())) {
+                String value = evalPop(ctx.func_param(i - 1).expr()).toString();
+                evalString(value);
+            }
+        }
+        if (size % 2 == 0) {
+            evalNull();
+            return;
+        }
+        evalString(defalut);
+    }
+
+    public static void main(String[] args) {
+        String[] numbers = {"111", "1", "2", "0", "4", "5", "6", "7", "8", "9", "defalit"};
+        String defalut = numbers[numbers.length - 1];
+        for (int i = 1; i < numbers.length - 1; i += 2) {
+            if (numbers[0].equals(numbers[i])) {
+                System.out.println(numbers[i + 1]);
+                return;
+            }
+        }
+        if (numbers.length % 2 == 0) {
+            defalut = null;
+        }
+        System.out.println(defalut);
     }
 }
