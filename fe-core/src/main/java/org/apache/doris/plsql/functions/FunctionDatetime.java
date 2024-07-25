@@ -69,7 +69,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("STR_TO_DATE", this::strToDate);
         f.map.put("ADD_MONTHS", this::addMonths);
         f.map.put("TRUNC", this::trunc);
-        f.map.put("date_sub", this::dateSub);
+        f.map.put("DATE_SUB", this::dateSub);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
