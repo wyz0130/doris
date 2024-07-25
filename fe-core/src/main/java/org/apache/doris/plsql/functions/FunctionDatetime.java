@@ -69,6 +69,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("STR_TO_DATE", this::strToDate);
         f.map.put("ADD_MONTHS", this::addMonths);
         f.map.put("TRUNC", this::trunc);
+        f.map.put("date_sub", this::dateSub);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
@@ -235,19 +236,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         }
         String firstStr = evalPop(ctx.func_param(0).expr()).toString();
         String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        SimpleDateFormat customFormat;
-        Date fistDate;
-        String[] split = firstStr.split("\\s+");
-        if (split.length > 1) {
-            customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        } else {
-            customFormat = new SimpleDateFormat("yyyy-MM-dd");
-        }
-        try {
-            fistDate = customFormat.parse(firstStr);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        Date fistDate = Utils.format(firstStr);
         LocalDateTime dateTime = fistDate.toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
         DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(lastStr);
         DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter();
@@ -256,7 +245,7 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * date_add function
+     * date_add function DATE_ADD(date,INTERVAL expr type)
      */
     private void dateAdd(Expr_func_paramsContext ctx) {
         int cnt = getParamCount(ctx);
@@ -265,22 +254,9 @@ public class FunctionDatetime extends BuiltinFunctions {
             return;
         }
         String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        SimpleDateFormat customFormat;
-        Date fistDate;
-        String[] split = firstStr.split("\\s+");
-
-        if (split.length > 1) {
-            customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        } else {
-            customFormat = new SimpleDateFormat("yyyy-MM-dd");
-        }
-        try {
-            fistDate = customFormat.parse(firstStr);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        Date fistDate = Utils.format(firstStr);
         String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String[] typeSplit = lastStr.split("\\s+");
+        String[] typeSplit = lastStr.trim().split("\\s+");
         if (typeSplit.length != 3) {
             throw new RuntimeException("Check the parameter type:" + lastStr);
         } else {
@@ -392,6 +368,35 @@ public class FunctionDatetime extends BuiltinFunctions {
             return;
         }
         evalString(value);
+    }
+
+    /**
+     * date_sub function date_sub(date,INTERVAL expr type)
+     */
+    private void dateSub(Expr_func_paramsContext ctx) {
+        int cnt = getParamCount(ctx);
+        if (cnt != 1) {
+            evalNull();
+            return;
+        }
+        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
+        Date fistDate = Utils.format(firstStr);
+        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
+        String[] typeSplit = lastStr.split("\\s+");
+        if (typeSplit.length != 3) {
+            throw new RuntimeException("Check the parameter type:" + lastStr);
+        } else {
+            if (StringUtils.isBlank(typeSplit[1]) || StringUtils.isBlank(typeSplit[2])) {
+                throw new RuntimeException("Check the parameter type:" + lastStr);
+            }
+        }
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(fistDate);
+        rightNow.roll(Utils.formatTimeUnit(typeSplit[2].toUpperCase()), Integer.valueOf(typeSplit[1]));
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = dateFormat2.format(rightNow.getTime());
+        System.out.println(format);
+        evalString(format);
     }
 
 }

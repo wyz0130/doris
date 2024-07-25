@@ -365,7 +365,7 @@ public class Utils {
     public static java.util.Date format(String strDate) {
         SimpleDateFormat customFormat;
         java.util.Date fistDate;
-        String[] split = strDate.split("\\s+");
+        String[] split = strDate.trim().split("\\s+");
 
         if (split.length > 1) {
             customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -388,7 +388,7 @@ public class Utils {
 
     public static String getFormat(String strDate) {
         String format;
-        String[] split = strDate.split("\\s+");
+        String[] split = strDate.trim().split("\\s+");
 
         if (split.length > 1) {
             format = "yyyy-MM-dd HH:mm:ss";
