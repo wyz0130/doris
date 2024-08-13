@@ -24,14 +24,11 @@ import org.apache.doris.nereids.PLParser.Expr_func_paramsContext;
 import org.apache.doris.nereids.PLParser.Expr_spec_funcContext;
 import org.apache.doris.nereids.util.DateUtils;
 import org.apache.doris.plsql.Exec;
-import org.apache.doris.plsql.Utils;
 import org.apache.doris.plsql.Var;
+import org.apache.doris.plsql.Var.Type;
 import org.apache.doris.plsql.executor.QueryExecutor;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -40,9 +37,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
-import javax.script.ScriptException;
-
 
 public class FunctionDatetime extends BuiltinFunctions {
     public FunctionDatetime(Exec e, QueryExecutor queryExecutor) {
@@ -54,7 +50,6 @@ public class FunctionDatetime extends BuiltinFunctions {
      */
     @Override
     public void register(BuiltinFunctions f) {
-
         f.map.put("DATE", this::date);
         f.map.put("FROM_UNIXTIME", this::fromUnixtime);
         f.map.put("NOW", ctx -> now(ctx));
@@ -62,20 +57,18 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("TO_TIMESTAMP", this::toTimestamp);
         f.map.put("UNIX_TIMESTAMP", this::unixTimestamp);
         f.map.put("CURRENT_TIME_MILLIS", this::currentTimeMillis);
-        f.map.put("DATE_FORMAT", this::dateFormat);
-        f.map.put("DATE_ADD", this::dateAdd);
-        f.map.put("LAST_DAY", this::lastDay);
         f.map.put("TO_DATE", this::toDate);
+        f.map.put("LAST_DAY", this::lastDay);
         f.map.put("STR_TO_DATE", this::strToDate);
+        f.map.put("DATE_ADD", this::dateAdd);
         f.map.put("ADD_MONTHS", this::addMonths);
         f.map.put("TRUNC", this::trunc);
-        f.map.put("DATE_SUB", this::dateSub);
+        f.map.put("date_sub", this::dateSub);
 
         f.specMap.put("CURRENT_DATE", this::currentDate);
         f.specMap.put("CURRENT_TIMESTAMP", this::currentTimestamp);
         f.specMap.put("SYSDATE", this::currentTimestamp);
         f.specMap.put("CURDATE", this::currentDate);
-
 
         f.specSqlMap.put("CURRENT_DATE", (org.apache.doris.plsql.functions.FuncSpecCommand) this::currentDateSql);
         f.specSqlMap.put("CURRENT_TIMESTAMP",
@@ -92,7 +85,7 @@ public class FunctionDatetime extends BuiltinFunctions {
     public static Var currentDate() {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String s = f.format(Calendar.getInstance().getTime());
-        return new Var(org.apache.doris.plsql.Var.Type.DATE, org.apache.doris.plsql.Utils.toDate(s));
+        return new Var(Type.DATE, org.apache.doris.plsql.Utils.toDate(s));
     }
 
     /**
@@ -114,13 +107,13 @@ public class FunctionDatetime extends BuiltinFunctions {
         evalVar(currentTimestamp(precision));
     }
 
-    /**
-     * currentTimestamp
-     */
     public static Var currentTimestamp(int precision) {
         String format = "yyyy-MM-dd HH:mm:ss";
         if (precision > 0 && precision <= 3) {
-            format += "." + StringUtils.repeat("S", precision);
+            format += '.';
+            for (int i = 0; i < precision; i++) {
+                format += 'S';
+            }
         }
         SimpleDateFormat f = new SimpleDateFormat(format);
         String s = f.format(Calendar.getInstance(TimeZone.getDefault()).getTime());
@@ -142,12 +135,11 @@ public class FunctionDatetime extends BuiltinFunctions {
      * DATE function
      */
     void date(Expr_func_paramsContext ctx) {
-        System.out.println("run date");
         if (ctx.func_param().size() != 1) {
             evalNull();
             return;
         }
-        Var var = new Var(org.apache.doris.plsql.Var.Type.DATE);
+        Var var = new Var(Type.DATE);
         var.cast(evalPop(ctx.func_param(0).expr()));
         evalVar(var);
     }
@@ -156,7 +148,6 @@ public class FunctionDatetime extends BuiltinFunctions {
      * NOW() function (current date and time)
      */
     void now(Expr_func_paramsContext ctx) {
-        System.out.println("run date");
         if (ctx != null) {
             evalNull();
             return;
@@ -172,7 +163,7 @@ public class FunctionDatetime extends BuiltinFunctions {
             evalNull();
             return;
         }
-        Var var = new Var(org.apache.doris.plsql.Var.Type.TIMESTAMP);
+        Var var = new Var(Type.TIMESTAMP);
         var.cast(evalPop(ctx.func_param(0).expr()));
         evalVar(var);
     }
@@ -190,7 +181,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         String format = org.apache.doris.plsql.Utils.convertSqlDatetimeFormat(sqlFormat);
         try {
             long timeInMs = new SimpleDateFormat(format).parse(value).getTime();
-            evalVar(new Var(org.apache.doris.plsql.Var.Type.TIMESTAMP, new Timestamp(timeInMs)));
+            evalVar(new Var(Type.TIMESTAMP, new Timestamp(timeInMs)));
         } catch (Exception e) {
             exec.signal(e);
             evalNull();
@@ -226,177 +217,248 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * date_format function
+     * toDate to_date("2024-06-18","format")
+     * format Support { yyyy-MM-dd、yyyy-MM-dd HH:mm:ss 、yyyy ...}
      */
-    public void dateFormat(Expr_func_paramsContext ctx) {
-        int cnt = getParamCount(ctx);
-        if (cnt != 1) {
-            evalNull();
-            return;
-        }
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        Date fistDate = Utils.format(firstStr);
-        LocalDateTime dateTime = fistDate.toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
-        DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(lastStr);
-        DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter();
-        String format = dateTime.format(formatter);
-        evalString(format);
-    }
+    private void toDate(Expr_func_paramsContext ctx) {
+        String dateStr = evalPop(ctx.func_param(0).expr()).toString();
+        String formatStr = evalPop(ctx.func_param(1).expr()).toString();
 
-    /**
-     * date_add function DATE_ADD(date,INTERVAL expr type)
-     */
-    private void dateAdd(Expr_func_paramsContext ctx) {
-        int cnt = getParamCount(ctx);
-        if (cnt != 1) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(formatStr);
+            Date date = format.parse(dateStr);
+            SimpleDateFormat baseFormat = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS");
+            evalString(baseFormat.format(date));
+        } catch (ParseException e) {
+            exec.signal(e);
             evalNull();
-            return;
         }
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        Date fistDate = Utils.format(firstStr);
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String[] typeSplit = lastStr.trim().split("\\s+");
-        if (typeSplit.length != 3) {
-            throw new RuntimeException("Check the parameter type:" + lastStr);
-        } else {
-            if (StringUtils.isBlank(typeSplit[1]) || StringUtils.isBlank(typeSplit[2])) {
-                throw new RuntimeException("Check the parameter type:" + lastStr);
-            }
-        }
-        Calendar rightNow = Calendar.getInstance();
-        rightNow.setTime(fistDate);
-        rightNow.add(Utils.formatTimeUnit(typeSplit[2].toUpperCase()), Integer.valueOf(typeSplit[1]));
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = dateFormat2.format(rightNow.getTime());
-        System.out.println(format);
-        evalString(format);
     }
 
     /**
      * last_day function
      */
     private void lastDay(Expr_func_paramsContext ctx) {
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        Date format = Utils.format(firstStr);
-        Calendar rightNow = Calendar.getInstance();
-        rightNow.setTime(format);
-        rightNow.set(Calendar.DAY_OF_MONTH, rightNow.getActualMaximum(Calendar.DAY_OF_MONTH));
-        Date time = rightNow.getTime();
-        String lastDay = Utils.format(time, "yyyy-MM-dd");
-        evalString(lastDay);
-    }
-
-    /**
-     * toDate to_date("2024-06-18","format")  20240618
-     * format Support { yyyy-MM-dd、yyyy-MM-dd HH:mm:ss 、yyyy ...}
-     */
-    private void toDate(Expr_func_paramsContext ctx) {
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String firstStrFormat = Utils.getFormat(firstStr);
+        String dateStr = evalPop(ctx.func_param(0).expr()).toString();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MMM-dd");
         try {
-            long timeInMs = new SimpleDateFormat(firstStrFormat).parse(firstStr).getTime();
-            String lastDay = Utils.format(new Date(timeInMs), lastStr);
-            evalString(lastDay);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(format.parse(dateStr));
+            calendar.add(Calendar.MONTH, 1);
+            calendar.set(Calendar.DAY_OF_MONTH, 0);
+            evalString(format.format(calendar.getTime()));
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            exec.signal(e);
+            evalNull();
         }
     }
 
     /**
-     * strToDate   str_to_date("2024-06-18","format")    20240618
-     * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
+     * date_add function
+     * date_add(now(),interval 1 month)
      */
-    private void strToDate(Expr_func_paramsContext ctx) {
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String firstStrFormat = Utils.getFormat(firstStr);
+    private void dateAdd(Expr_func_paramsContext ctx) {
+        String dateParam = evalPop(ctx.func_param(0)).toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String[] split = dateParam.split("\\s+");
+        if (split.length > 1) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+
+        String interval = evalPop(ctx.func_param(1).expr()).toString().toLowerCase(Locale.ROOT);
+        String[] intervalParts = interval.split("\\s+");
+        if (intervalParts.length != 3 || !intervalParts[0].equals("interval")) {
+            evalNull();
+            return;
+        }
+
         try {
-            long timeInMs = new SimpleDateFormat(firstStrFormat).parse(firstStr).getTime();
-            LocalDateTime dateTime = new Date(timeInMs).toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
-            DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(lastStr);
-            DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter();
-            String format = dateTime.format(formatter);
-            evalString(format);
+            Calendar finalTime = Calendar.getInstance();
+            finalTime.setTime(dateFormat.parse(dateParam));
+            switch (intervalParts[2]) {
+                case "second":
+                    finalTime.add(Calendar.SECOND, Integer.valueOf(intervalParts[1]));
+                    break;
+                case "minite":
+                    finalTime.add(Calendar.MINUTE, Integer.valueOf(intervalParts[1]));
+                    break;
+                case "hour":
+                    finalTime.add(Calendar.HOUR, Integer.valueOf(intervalParts[1]));
+                    break;
+                case "day":
+                    finalTime.add(Calendar.DATE, Integer.valueOf(intervalParts[1]));
+                    break;
+                case "month":
+                    finalTime.add(Calendar.MONTH, Integer.valueOf(intervalParts[1]));
+                    break;
+                case "year":
+                    finalTime.add(Calendar.YEAR, Integer.valueOf(intervalParts[1]));
+                    break;
+                default:
+                    break;
+            }
+
+            evalString(dateFormat.format(finalTime.getTime()));
         } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * addMonths   add_months(date,number)
-     */
-    private void addMonths(Expr_func_paramsContext ctx) {
-        if (ctx.func_param().size() != 2) {
+            exec.signal(e);
             evalNull();
-            return;
         }
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        Date format = Utils.format(firstStr);
-        Integer count = null;
-        try {
-            count = Utils.arithmeticExpression(lastStr);
-        } catch (ScriptException e) {
-            evalNull();
-            return;
-        }
-        Calendar rightNow = Calendar.getInstance();
-        rightNow.setTime(format);
-        rightNow.add(Calendar.MONTH, count);
-        Date time = rightNow.getTime();
-        String lastDay = Utils.format(time, Utils.getFormat(firstStr));
-        evalString(lastDay);
-    }
-
-
-    /**
-     * trunc(date/datetime ,type)
-     * type {yyyy/year ,mm/month ,dd ,hh ,mi }
-     */
-    private void trunc(Expr_func_paramsContext ctx) {
-        if (ctx.func_param().size() != 2) {
-            evalNull();
-            return;
-        }
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String value = Utils.dateTrunc(firstStr, lastStr);
-        if (value == null) {
-            evalNull();
-            return;
-        }
-        evalString(value);
     }
 
     /**
      * date_sub function date_sub(date,INTERVAL expr type)
      */
     private void dateSub(Expr_func_paramsContext ctx) {
-        int cnt = getParamCount(ctx);
-        if (cnt != 1) {
+        String dateParam = evalPop(ctx.func_param(0)).toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (dateParam.indexOf(' ') != -1) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+
+        String interval = evalPop(ctx.func_param(1).expr()).toString().toLowerCase(Locale.ROOT);
+        String[] intervalParts = interval.split("\\s+");
+        if (intervalParts.length != 3 || !intervalParts[0].equals("interval")) {
+            evalNull();
+        }
+
+        try {
+            Calendar finalTime = Calendar.getInstance();
+            finalTime.setTime(dateFormat.parse(dateParam));
+            switch (intervalParts[2]) {
+                case "second":
+                    finalTime.add(Calendar.SECOND, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "minite":
+                    finalTime.add(Calendar.MINUTE, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "hour":
+                    finalTime.add(Calendar.HOUR, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "day":
+                    finalTime.add(Calendar.DATE, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "month":
+                    finalTime.add(Calendar.MONTH, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "year":
+                    finalTime.add(Calendar.YEAR, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                default:
+                    break;
+            }
+
+            evalString(dateFormat.format(finalTime.getTime()));
+        } catch (ParseException e) {
+            exec.signal(e);
+            evalNull();
+        }
+    }
+
+    /**
+     * strToDate   str_to_date("2024-06-18","format")
+     * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
+     */
+    private void strToDate(Expr_func_paramsContext ctx) {
+        String dateString = evalPop(ctx.func_param(0).expr()).toString();
+        String formatString = evalPop(ctx.func_param(1).expr()).toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            long timeInMs = dateFormat.parse(dateString).getTime();
+            LocalDateTime dateTime = new Date(timeInMs).toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
+            DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(formatString);
+            DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter();
+            String format = dateTime.format(formatter);
+            evalString(format);
+        } catch (ParseException e) {
+            exec.signal(e);
+            evalNull();
+        }
+    }
+
+    /**
+     * addMonths   add_months(date,number)
+     */
+    void addMonths(Expr_func_paramsContext ctx) {
+        if (ctx.func_param().size() != 2) {
             evalNull();
             return;
         }
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        Date fistDate = Utils.format(firstStr);
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String[] typeSplit = lastStr.split("\\s+");
-        if (typeSplit.length != 3) {
-            throw new RuntimeException("Check the parameter type:" + lastStr);
-        } else {
-            if (StringUtils.isBlank(typeSplit[1]) || StringUtils.isBlank(typeSplit[2])) {
-                throw new RuntimeException("Check the parameter type:" + lastStr);
-            }
+        String dateStart = evalPop(ctx.func_param(0).expr()).toString();
+        String number = evalPop(ctx.func_param(1).expr()).toString();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (dateStart.indexOf(' ') != -1) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.00000");
         }
-        Calendar rightNow = Calendar.getInstance();
-        rightNow.setTime(fistDate);
-        rightNow.roll(Utils.formatTimeUnit(typeSplit[2].toUpperCase()), Integer.valueOf(typeSplit[1]));
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = dateFormat2.format(rightNow.getTime());
-        System.out.println(format);
-        evalString(format);
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateFormat.parse(dateStart));
+            calendar.add(Calendar.MONTH, Integer.parseInt(number));
+
+            evalString(dateFormat.format(calendar.getTime()));
+        } catch (ParseException e) {
+            exec.signal(e);
+            evalNull();
+        }
     }
 
+    /**
+     * trunc(date/datetime ,[type])
+     * type {yyyy/year ,mm/month ,dd ,hh ,mi }
+     */
+    private void trunc(Expr_func_paramsContext ctx) {
+        String dateStart = evalPop(ctx.func_param(0).expr()).toString();
+        String truncType = evalPop(ctx.func_param(1).expr()).toString();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (dateStart.indexOf(' ') != -1) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateFormat.parse(dateStart));
+            switch (truncType.toLowerCase(Locale.ROOT)) {
+                case "year":
+                case "yyyy":
+                    calendar.set(Calendar.MONTH, 1);
+                    calendar.set(Calendar.DATE, 1);
+                    calendar.set(Calendar.HOUR, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    break;
+                case "month":
+                case "mm":
+                    calendar.set(Calendar.DATE, 1);
+                    calendar.set(Calendar.HOUR, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    break;
+                case "dd":
+                    calendar.set(Calendar.HOUR, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    break;
+                case "day":
+                    //TODO
+                    break;
+                case "hh":
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    break;
+                case "mi":
+                    calendar.set(Calendar.SECOND, 0);
+                    break;
+                default:
+                    break;
+            }
+
+            evalString(dateFormat.format(calendar.getTime()));
+        } catch (ParseException e) {
+            exec.signal(e);
+            evalNull();
+        }
+    }
 }

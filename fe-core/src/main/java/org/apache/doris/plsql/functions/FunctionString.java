@@ -20,17 +20,12 @@
 
 package org.apache.doris.plsql.functions;
 
-
 import org.apache.doris.nereids.PLParser.Expr_func_paramsContext;
 import org.apache.doris.nereids.PLParser.Expr_spec_funcContext;
 import org.apache.doris.plsql.Exec;
 import org.apache.doris.plsql.Var;
 import org.apache.doris.plsql.executor.QueryExecutor;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,8 +41,6 @@ public class FunctionString extends BuiltinFunctions {
     @Override
     public void register(BuiltinFunctions f) {
         f.map.put("CONCAT", this::concat);
-        f.map.put("||", this::concat);
-        f.map.put("CONCATWS", this::concatWs);
         f.map.put("CHAR", this::char_);
         f.map.put("INSTR", this::instr);
         f.map.put("LEN", this::len);
@@ -60,6 +53,9 @@ public class FunctionString extends BuiltinFunctions {
         f.map.put("TO_CHAR", this::toChar);
         f.map.put("UPPER", this::upper);
         f.map.put("SIGN", this::sign);
+        f.map.put("STR_TO_DATE", this::str2date);
+        f.map.put("||", this::concat);
+        f.map.put("CONCATWS", this::concatWs);
 
         f.specMap.put("SUBSTRING", this::substring);
         f.specMap.put("TRIM", this::trim);
@@ -76,32 +72,6 @@ public class FunctionString extends BuiltinFunctions {
             org.apache.doris.plsql.Var c = evalPop(ctx.func_param(i).expr());
             if (!c.isNull()) {
                 val.append(c.toString());
-                nulls = false;
-            }
-        }
-        if (nulls) {
-            evalNull();
-        } else {
-            evalString(val);
-        }
-    }
-
-    /**
-     * concatWs function
-     */
-    void concatWs(Expr_func_paramsContext ctx) {
-        StringBuilder val = new StringBuilder();
-        int cnt = getParamCount(ctx);
-        boolean nulls = true;
-        Var first = evalPop(ctx.func_param(0).expr());
-        if (first.isNull()) {
-            evalNull();
-            return;
-        }
-        for (int i = 1; i < cnt; i++) {
-            org.apache.doris.plsql.Var c = evalPop(ctx.func_param(i).expr());
-            if (!c.isNull()) {
-                val.append(first).append(c);
                 nulls = false;
             }
         }
@@ -308,38 +278,42 @@ public class FunctionString extends BuiltinFunctions {
      */
     void toChar(Expr_func_paramsContext ctx) {
         int cnt = getParamCount(ctx);
-        if (cnt != 1 || StringUtils.isBlank(evalPop(ctx.func_param(0).expr()).toString())) {
+        if (cnt != 1 || cnt != 2) {
             evalNull();
             return;
         }
-        String firstStr = evalPop(ctx.func_param(0).expr()).toString();
-        String lastStr = evalPop(ctx.func_param(1).expr()).toString();
-        String dateString = "";
-
-        if (NumberUtils.isNumber(firstStr)) {
-            if (firstStr.length() == 10) {
-                firstStr = new StringBuffer(firstStr).append("000").toString();
-            }
-            Date date = new Date(Long.valueOf(firstStr));
-            SimpleDateFormat customFormat = new SimpleDateFormat(lastStr);
-            dateString = customFormat.format(date);
+        if (cnt == 1) {
+            String str = evalPop(ctx.func_param(0).expr()).toString();
+            evalString(str);
         } else {
-            SimpleDateFormat customFormat;
-            String[] split = firstStr.split("\\s+");
-            if (split.length > 1) {
-                customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = evalPop(ctx.func_param(0).expr()).toString();
+            String format = evalPop(ctx.func_param(1).expr()).toString();
+
+            if (time.matches("^[0-9]$")) {
+                if (time.length() == 10) {
+                    time += "000";
+                }
+                Date date = new Date(Long.valueOf(time));
+                SimpleDateFormat customFormat = new SimpleDateFormat(format);
+                evalString(customFormat.format(date));
             } else {
-                customFormat = new SimpleDateFormat("yyyy-MM-dd");
-            }
-            try {
-                Date parse = customFormat.parse(firstStr);
-                customFormat = new SimpleDateFormat(lastStr);
-                dateString = customFormat.format(parse);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+                SimpleDateFormat customFormat;
+                String[] split = time.split("\\\\s+");
+                if (split.length > 1) {
+                    customFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                } else {
+                    customFormat = new SimpleDateFormat("yyyy-MM-dd");
+                }
+                try {
+                    Date parse = customFormat.parse(time);
+                    customFormat = new SimpleDateFormat(format);
+                    evalString(customFormat.format(parse));
+                } catch (ParseException e) {
+                    exec.signal(e);
+                    evalNull();
+                }
             }
         }
-        evalString(dateString);
     }
 
     /**
@@ -355,29 +329,69 @@ public class FunctionString extends BuiltinFunctions {
     }
 
     /**
-     * sign function
+     * SIGN function
      */
     void sign(Expr_func_paramsContext ctx) {
         if (ctx.func_param().size() != 1) {
             evalNull();
-            return;
+        } else {
+            String str = evalPop(ctx.func_param(0).expr()).toString();
+            if (str.matches("^[0-9]$")) {
+                if (str.charAt(0) == '-') {
+                    evalInt(-1);
+                } else if (str.equals("0") || str.equals("-0")) {
+                    evalInt(0);
+                } else {
+                    evalInt(1);
+                }
+            } else {
+                evalNull();
+            }
         }
-        String strNub = evalPop(ctx.func_param(0).expr()).toString();
-        if (!NumberUtils.isNumber(strNub)) {
+    }
+
+    /**
+     * strToDate    str_to_date('2020/09/03','%Y/%m/%d')
+     * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
+     */
+    void str2date(Expr_func_paramsContext ctx) {
+        String dateStr = evalPop(ctx.func_param(0).expr()).toString();
+        String formatStr = evalPop(ctx.func_param(1).expr()).toString();
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(formatStr);
+            Date date = format.parse(dateStr);
+            SimpleDateFormat baseFormat = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS");
+            evalString(baseFormat.format(date));
+        } catch (ParseException e) {
+            exec.signal(e);
+            evalNull();
+        }
+    }
+
+    /**
+     * concatWs function
+     */
+    void concatWs(Expr_func_paramsContext ctx) {
+        StringBuilder val = new StringBuilder();
+        int cnt = getParamCount(ctx);
+        boolean nulls = true;
+        Var first = evalPop(ctx.func_param(0).expr());
+        if (first.isNull()) {
             evalNull();
             return;
         }
-        BigDecimal bigDecimal = new BigDecimal(strNub);
-        if (bigDecimal.equals(new BigDecimal(0))) {
-            evalInt(0);
-            return;
+        for (int i = 1; i < cnt; i++) {
+            Var c = evalPop(ctx.func_param(i).expr());
+            if (!c.isNull()) {
+                val.append(first).append(c);
+                nulls = false;
+            }
         }
-        if (bigDecimal.equals(bigDecimal.abs())) {
-            evalInt(1);
-            return;
-        }
-        if (!bigDecimal.equals(bigDecimal.abs())) {
-            evalInt(-1);
+        if (nulls) {
+            evalNull();
+        } else {
+            evalString(val);
         }
     }
 }
