@@ -254,16 +254,22 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * date_add function
-     * date_add(now(),interval 1 month)
+     *  date_add function
+     *  date_sub(date/datetime,INTERVAL expr type) return datetime
+     *      type{millisecond,second,minute,hour,day,week,month,quarter,year}
+     *
+     *  date_add('2024-08-14 ',interval 1 hour);     2024-08-14 01:00:00.000
+     *  date_add('2024-08-14',interval 1 day);       2024-08-15 00:00:00.000
+     *  date_add('2024-08-15 00:00:00.000',interval 1 day);     2024-08-16 00:00:00.000
+     *  date_add('2024-08-15 00:00:00.000',interval -1 day);    2024-08-14 00:00:00.000
      */
     private void dateAdd(Expr_func_paramsContext ctx) {
         String dateParam = evalPop(ctx.func_param(0)).toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String[] split = dateParam.split("\\s+");
-        if (split.length > 1) {
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String pattern = "yyyy-MM-dd";
+        if (dateParam.indexOf(' ') != -1) {
+            pattern = "yyyy-MM-dd HH:mm:ss.SSS";
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 
         String interval = evalPop(ctx.func_param(1).expr()).toString().toLowerCase(Locale.ROOT);
         String[] intervalParts = interval.split("\\s+");
@@ -276,28 +282,37 @@ public class FunctionDatetime extends BuiltinFunctions {
             Calendar finalTime = Calendar.getInstance();
             finalTime.setTime(dateFormat.parse(dateParam));
             switch (intervalParts[2]) {
-                case "second":
-                    finalTime.add(Calendar.SECOND, Integer.valueOf(intervalParts[1]));
+                case "millisecond":
+                    finalTime.add(Calendar.MILLISECOND, -1 * Integer.valueOf(intervalParts[1]));
                     break;
-                case "minite":
-                    finalTime.add(Calendar.MINUTE, Integer.valueOf(intervalParts[1]));
+                case "second":
+                    finalTime.add(Calendar.SECOND, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "minute":
+                    finalTime.add(Calendar.MINUTE, -1 * Integer.valueOf(intervalParts[1]));
                     break;
                 case "hour":
-                    finalTime.add(Calendar.HOUR, Integer.valueOf(intervalParts[1]));
+                    finalTime.add(Calendar.HOUR, -1 * Integer.valueOf(intervalParts[1]));
                     break;
                 case "day":
-                    finalTime.add(Calendar.DATE, Integer.valueOf(intervalParts[1]));
+                    finalTime.add(Calendar.DATE, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "week":
+                    finalTime.add(Calendar.WEEK_OF_YEAR, -1 * Integer.valueOf(intervalParts[1]));
                     break;
                 case "month":
-                    finalTime.add(Calendar.MONTH, Integer.valueOf(intervalParts[1]));
+                    finalTime.add(Calendar.MONTH, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "quarter":
+                    finalTime.add(Calendar.MONTH, -3 * Integer.valueOf(intervalParts[1]));
                     break;
                 case "year":
-                    finalTime.add(Calendar.YEAR, Integer.valueOf(intervalParts[1]));
+                    finalTime.add(Calendar.YEAR, -1 * Integer.valueOf(intervalParts[1]));
                     break;
                 default:
                     break;
             }
-
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             evalString(dateFormat.format(finalTime.getTime()));
         } catch (ParseException e) {
             exec.signal(e);
@@ -306,14 +321,24 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * date_sub function date_sub(date,INTERVAL expr type)
+     * If the date parameter is a DATE value and the calculated interval has only YEAR, MONTH,
+     * and DAY parts (no time part), then the return value is also a DATE value. Otherwise the
+     * return value is a DATETIME value.
+     *
+     *  date_sub(date/datetime,INTERVAL expr type)
+     *  type{millisecond,second,minute,hour,day,week,month,quarter,year}
+     *
+     *  date_sub('2024-08-14',interval 1 hour);                     2024-08-13 23:00:00.000
+     *  date_sub('2024-08-14 01:00:00.000',interval 1 hour)        2024-08-14 00:00:00.000
      */
+    @SuppressWarnings("checkstyle:LineLength")
     private void dateSub(Expr_func_paramsContext ctx) {
         String dateParam = evalPop(ctx.func_param(0)).toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String pattern = "yyyy-MM-dd";
         if (dateParam.indexOf(' ') != -1) {
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            pattern = "yyyy-MM-dd HH:mm:ss.SSS";
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 
         String interval = evalPop(ctx.func_param(1).expr()).toString().toLowerCase(Locale.ROOT);
         String[] intervalParts = interval.split("\\s+");
@@ -325,10 +350,13 @@ public class FunctionDatetime extends BuiltinFunctions {
             Calendar finalTime = Calendar.getInstance();
             finalTime.setTime(dateFormat.parse(dateParam));
             switch (intervalParts[2]) {
+                case "millisecond":
+                    finalTime.add(Calendar.MILLISECOND, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
                 case "second":
                     finalTime.add(Calendar.SECOND, -1 * Integer.valueOf(intervalParts[1]));
                     break;
-                case "minite":
+                case "minute":
                     finalTime.add(Calendar.MINUTE, -1 * Integer.valueOf(intervalParts[1]));
                     break;
                 case "hour":
@@ -337,8 +365,14 @@ public class FunctionDatetime extends BuiltinFunctions {
                 case "day":
                     finalTime.add(Calendar.DATE, -1 * Integer.valueOf(intervalParts[1]));
                     break;
+                case "week":
+                    finalTime.add(Calendar.WEEK_OF_YEAR, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
                 case "month":
                     finalTime.add(Calendar.MONTH, -1 * Integer.valueOf(intervalParts[1]));
+                    break;
+                case "quarter":
+                    finalTime.add(Calendar.MONTH, -3 * Integer.valueOf(intervalParts[1]));
                     break;
                 case "year":
                     finalTime.add(Calendar.YEAR, -1 * Integer.valueOf(intervalParts[1]));
@@ -346,7 +380,12 @@ public class FunctionDatetime extends BuiltinFunctions {
                 default:
                     break;
             }
-
+            if ("yyyy-MM-dd".equals(pattern) && "day".equals(intervalParts[2]) || "week".equals(intervalParts[2]) || 
+                "month".equals(intervalParts[2]) || "quarter".equals(intervalParts[2]) || "year".equals(intervalParts[2])) {
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            } else {
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            }
             evalString(dateFormat.format(finalTime.getTime()));
         } catch (ParseException e) {
             exec.signal(e);
@@ -461,4 +500,6 @@ public class FunctionDatetime extends BuiltinFunctions {
             evalNull();
         }
     }
+
 }
+
