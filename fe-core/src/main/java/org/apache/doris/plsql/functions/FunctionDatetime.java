@@ -218,16 +218,57 @@ public class FunctionDatetime extends BuiltinFunctions {
 
     /**
      * toDate to_date("2024-06-18","format")
-     * format Support { yyyy-MM-dd、yyyy-MM-dd HH:mm:ss 、yyyy ...}
+     * format Support { YYYY/YY、MM、DD、DDD、HH、HH12、HH24、AM、PM、MI、SS}
+     * delimiter{ - ，. : / 空格 }
+     *  to_date('2024/15 11/15/10','yyyy/DDD HH/MI/ss');     2024-08-15 11:15:10
+     *  to_date('2024/15 11/15/10','yyyy/DDD HH/MI/ss');     2024-01-15 11:15:10
      */
     private void toDate(Expr_func_paramsContext ctx) {
         String dateStr = evalPop(ctx.func_param(0).expr()).toString();
         String formatStr = evalPop(ctx.func_param(1).expr()).toString();
 
+        dateStr = dateStr.trim();
+        formatStr = formatStr.trim();
+
+        dateStr = dateStr.replace("-", "/");
+        dateStr = dateStr.replace(",", "/");
+        dateStr = dateStr.replace(".", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replaceAll("\\s+", "/");
+
+        formatStr = formatStr.replace("-", "/");
+        formatStr = formatStr.replace(",", "/");
+        formatStr = formatStr.replace(".", "/");
+        formatStr = formatStr.replace(":", "/");
+        formatStr = formatStr.replaceAll("\\s+", "/");
+
+        formatStr = formatStr.replaceAll("Y", "y");
+
+        formatStr = formatStr.replaceAll("ddd", "D");
+        formatStr = formatStr.replaceAll("DDD", "D");
+        formatStr = formatStr.replaceAll("DD", "dd");
+
+        formatStr = formatStr.replaceAll("HH12", "hh");
+        formatStr = formatStr.replaceAll("HH24", "HH");
+
+        if (dateStr.toLowerCase().contains("pm")) {
+            formatStr = formatStr.replace("HH", "hh");
+        }
+
+        formatStr = formatStr.replaceAll("MI", "mm");
+        formatStr = formatStr.replaceAll("mi", "mm");
+
         try {
             SimpleDateFormat format = new SimpleDateFormat(formatStr);
             Date date = format.parse(dateStr);
-            SimpleDateFormat baseFormat = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS");
+            if (!formatStr.contains("MM") && !formatStr.contains("D")) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+                calendar.set(Calendar.MONTH, currentMonth);
+                date = calendar.getTime();
+            }
+            SimpleDateFormat baseFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             evalString(baseFormat.format(date));
         } catch (ParseException e) {
             exec.signal(e);
@@ -380,7 +421,7 @@ public class FunctionDatetime extends BuiltinFunctions {
                 default:
                     break;
             }
-            if ("yyyy-MM-dd".equals(pattern) && "day".equals(intervalParts[2]) || "week".equals(intervalParts[2]) || 
+            if ("yyyy-MM-dd".equals(pattern) && "day".equals(intervalParts[2]) || "week".equals(intervalParts[2]) ||
                 "month".equals(intervalParts[2]) || "quarter".equals(intervalParts[2]) || "year".equals(intervalParts[2])) {
                 dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             } else {
@@ -500,6 +541,5 @@ public class FunctionDatetime extends BuiltinFunctions {
             evalNull();
         }
     }
-
 }
 
