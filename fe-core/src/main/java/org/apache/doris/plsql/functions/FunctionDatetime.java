@@ -59,6 +59,7 @@ public class FunctionDatetime extends BuiltinFunctions {
         f.map.put("CURRENT_TIME_MILLIS", this::currentTimeMillis);
         f.map.put("TO_DATE", this::toDate);
         f.map.put("LAST_DAY", this::lastDay);
+        f.map.put("DATE_FORMAT", this::dateFormat);
         f.map.put("STR_TO_DATE", this::strToDate);
         f.map.put("DATE_ADD", this::dateAdd);
         f.map.put("ADD_MONTHS", this::addMonths);
@@ -217,18 +218,17 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * toDate to_date("2024-06-18","format")
-     * format Support { YYYY/YY、MM、DD、DDD、HH、HH12、HH24、AM、PM、MI、SS}
-     * delimiter{ - ，. : / 空格 }
-     *  to_date('2024/15 11/15/10','yyyy/DDD HH/MI/ss');     2024-08-15 11:15:10
-     *  to_date('2024/15 11/15/10','yyyy/DDD HH/MI/ss');     2024-01-15 11:15:10
+     * Format the string string as a date of type format
+     * to_date("2024-06-18","format")   return datetime
+     *      format Support { YYYY/YY、MM、DD、DDD、HH、HH12、HH24、AM、PM、MI、SS}
+     *      delimiter{ - ，. : / 空格 }
+     * case:
+     *      to_date('2024/15 11/15/10','yyyy/DDD HH/MI/ss');     2024-08-15 11:15:10
+     *      to_date('2024/15 11/15/10','yyyy/DDD HH/MI/ss');     2024-01-15 11:15:10
      */
     private void toDate(Expr_func_paramsContext ctx) {
-        String dateStr = evalPop(ctx.func_param(0).expr()).toString();
-        String formatStr = evalPop(ctx.func_param(1).expr()).toString();
-
-        dateStr = dateStr.trim();
-        formatStr = formatStr.trim();
+        String dateStr = evalPop(ctx.func_param(0).expr()).toString().trim();
+        String formatStr = evalPop(ctx.func_param(1).expr()).toString().trim();
 
         dateStr = dateStr.replace("-", "/");
         dateStr = dateStr.replace(",", "/");
@@ -277,17 +277,34 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * last_day function
+     * Returns the value of the last day corresponding to the current month in date.
+     * Where, date is the date or date-time type. Returns NULL if the parameter date is invalid
+     * last_day(date/datetime)  return date
+     *
+     * case:
+     *      last_day('2020-1-15/12/00/00')     2020-01-31
      */
     private void lastDay(Expr_func_paramsContext ctx) {
         String dateStr = evalPop(ctx.func_param(0).expr()).toString();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MMM-dd");
+        dateStr = dateStr.replace("-", "/");
+        dateStr = dateStr.replace(",", "/");
+        dateStr = dateStr.replace(".", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replaceAll("\\s+", "/");
+
+        String pattern = "yyyy/MM/dd";
+        if (dateStr.length() > 9) {
+            pattern = "yyyy/MM/dd/HH/mm/ss";
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         try {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(format.parse(dateStr));
+            calendar.setTime(dateFormat.parse(dateStr));
             calendar.add(Calendar.MONTH, 1);
             calendar.set(Calendar.DAY_OF_MONTH, 0);
-            evalString(format.format(calendar.getTime()));
+            pattern = "yyyy-MM-dd";
+            evalString(new SimpleDateFormat(pattern).format(calendar.getTime()));
         } catch (ParseException e) {
             exec.signal(e);
             evalNull();
@@ -295,17 +312,18 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     *  date_add function
-     *  date_sub(date/datetime,INTERVAL expr type) return datetime
-     *      type{millisecond,second,minute,hour,day,week,month,quarter,year}
+     * date addition operation, Positive numbers are plus, negative numbers are minus
+     *  date_add(date/datetime,INTERVAL expr type) return datetime
+     *      type Support {millisecond,second,minute,hour,day,week,month,quarter,year}
      *
-     *  date_add('2024-08-14 ',interval 1 hour);     2024-08-14 01:00:00.000
-     *  date_add('2024-08-14',interval 1 day);       2024-08-15 00:00:00.000
-     *  date_add('2024-08-15 00:00:00.000',interval 1 day);     2024-08-16 00:00:00.000
-     *  date_add('2024-08-15 00:00:00.000',interval -1 day);    2024-08-14 00:00:00.000
+     * case:
+     *      date_add('2024-08-14 ',interval 1 hour);     2024-08-14 01:00:00.000
+     *      date_add('2024-08-14',interval 1 day);       2024-08-15 00:00:00.000
+     *      date_add('2024-08-15 00:00:00.000',interval 1 day);     2024-08-16 00:00:00.000
+     *      date_add('2024-08-15 00:00:00.000',interval -1 day);    2024-08-14 00:00:00.000
      */
     private void dateAdd(Expr_func_paramsContext ctx) {
-        String dateParam = evalPop(ctx.func_param(0)).toString();
+        String dateParam = evalPop(ctx.func_param(0)).toString().trim();
         String pattern = "yyyy-MM-dd";
         if (dateParam.indexOf(' ') != -1) {
             pattern = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -374,7 +392,7 @@ public class FunctionDatetime extends BuiltinFunctions {
      */
     @SuppressWarnings("checkstyle:LineLength")
     private void dateSub(Expr_func_paramsContext ctx) {
-        String dateParam = evalPop(ctx.func_param(0)).toString();
+        String dateParam = evalPop(ctx.func_param(0)).toString().trim();
         String pattern = "yyyy-MM-dd";
         if (dateParam.indexOf(' ') != -1) {
             pattern = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -435,10 +453,37 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
+     * dateFormat   date_format(date/dateime,"format")
+     * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
+     * date_format('2020-10-04 22:23:00','%W %M %Y');  Sunday October 2020
+     * date_format('2020-01-01','%X %V');  2019 52
+     */
+    private void dateFormat(Expr_func_paramsContext ctx) {
+        String dateString = evalPop(ctx.func_param(0).expr()).toString().trim();
+        String formatString = evalPop(ctx.func_param(1).expr()).toString().trim();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (dateString.indexOf(' ') != -1) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+        try {
+            long timeInMs = dateFormat.parse(dateString).getTime();
+            LocalDateTime dateTime = new Date(timeInMs).toInstant().atOffset(ZoneOffset.of("+8")).toLocalDateTime();
+            DateTimeFormatterBuilder dateTimeFormatterBuilder = DateUtils.formatBuilder(formatString);
+            DateTimeFormatter formatter = dateTimeFormatterBuilder.toFormatter().withLocale(Locale.ENGLISH);
+            String format = dateTime.format(formatter);
+            evalString(format);
+        } catch (ParseException e) {
+            exec.signal(e);
+            evalNull();
+        }
+    }
+
+    /**
      * strToDate   str_to_date("2024-06-18","format")
      * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
      */
     private void strToDate(Expr_func_paramsContext ctx) {
+        //TODO
         String dateString = evalPop(ctx.func_param(0).expr()).toString();
         String formatString = evalPop(ctx.func_param(1).expr()).toString();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -457,27 +502,43 @@ public class FunctionDatetime extends BuiltinFunctions {
     }
 
     /**
-     * addMonths   add_months(date,number)
+     *  addMonths   add_months(date/datetime,number)
+     *  delimiter{ - ，. : / 空格 }
+     *  add_months('2020-1-30 12:00:00', 1);    2020-02-29 12:00:00
+     *  add_months('2020-1-30 ', 1);            2020-02-29
+     *  add_months('2020,1,30,12,00,00', 1);    2020-02-29 12:00:00
+     *  add_months('2020-1:30 ', 1);            2020-02-29
+     *  add_months('2020-1-30 12:00:00', -1);    2019-12-30 12:00:00
+     *  add_months('2020-1-30 ', -1);            2019-12-30
      */
     void addMonths(Expr_func_paramsContext ctx) {
         if (ctx.func_param().size() != 2) {
             evalNull();
             return;
         }
-        String dateStart = evalPop(ctx.func_param(0).expr()).toString();
-        String number = evalPop(ctx.func_param(1).expr()).toString();
+        String dateStr = evalPop(ctx.func_param(0).expr()).toString().trim();
+        String number = evalPop(ctx.func_param(1).expr()).toString().trim();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (dateStart.indexOf(' ') != -1) {
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.00000");
+        dateStr = dateStr.replace("-", "/");
+        dateStr = dateStr.replace(",", "/");
+        dateStr = dateStr.replace(".", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replaceAll("\\s+", "/");
+        String pattern = "yyyy/MM/dd";
+        if (dateStr.length() > 9) {
+            pattern = "yyyy/MM/dd/HH/mm/ss";
         }
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         try {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(dateFormat.parse(dateStart));
+            calendar.setTime(dateFormat.parse(dateStr));
             calendar.add(Calendar.MONTH, Integer.parseInt(number));
-
-            evalString(dateFormat.format(calendar.getTime()));
+            pattern = "yyyy-MM-dd";
+            if (dateStr.length() > 9) {
+                pattern = "yyyy-MM-dd HH:mm:ss";
+            }
+            evalString(new SimpleDateFormat(pattern).format(calendar.getTime()));
         } catch (ParseException e) {
             exec.signal(e);
             evalNull();
@@ -486,38 +547,52 @@ public class FunctionDatetime extends BuiltinFunctions {
 
     /**
      * trunc(date/datetime ,[type])
-     * type {yyyy/year ,mm/month ,dd ,hh ,mi }
+     *      type {yyyy/year ,mm/month ,dd ,hh ,mi }
+     *      delimiter{ - ，. : / 空格 }
+     *      trunc('2020-1-30/12/11/11','mi') ;    2020-01-30 12:11:00
+     *      trunc('2020-1-30/12/11/11','month')   2020-01-01 00:00:00
+     *      trunc('2020-1-30/12/11/11','year')    2020-01-01 00:00:00
+     *      trunc('2020-1-30','year')             2020-01-01
      */
     private void trunc(Expr_func_paramsContext ctx) {
-        String dateStart = evalPop(ctx.func_param(0).expr()).toString();
+        String dateStr = evalPop(ctx.func_param(0).expr()).toString();
         String truncType = evalPop(ctx.func_param(1).expr()).toString();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (dateStart.indexOf(' ') != -1) {
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateStr = dateStr.replace("-", "/");
+        dateStr = dateStr.replace(",", "/");
+        dateStr = dateStr.replace(".", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replace(":", "/");
+        dateStr = dateStr.replaceAll("\\s+", "/");
+
+        String pattern = "yyyy/MM/dd";
+        if (dateStr.length() > 9) {
+            pattern = "yyyy/MM/dd/HH/mm/ss";
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 
         try {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(dateFormat.parse(dateStart));
+            calendar.setTime(dateFormat.parse(dateStr));
+            System.out.println(truncType.toLowerCase(Locale.ROOT));
             switch (truncType.toLowerCase(Locale.ROOT)) {
                 case "year":
                 case "yyyy":
-                    calendar.set(Calendar.MONTH, 1);
+                    calendar.set(Calendar.MONTH, 0);
                     calendar.set(Calendar.DATE, 1);
-                    calendar.set(Calendar.HOUR, 0);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
                     calendar.set(Calendar.MINUTE, 0);
                     calendar.set(Calendar.SECOND, 0);
                     break;
                 case "month":
                 case "mm":
                     calendar.set(Calendar.DATE, 1);
-                    calendar.set(Calendar.HOUR, 0);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
                     calendar.set(Calendar.MINUTE, 0);
                     calendar.set(Calendar.SECOND, 0);
                     break;
                 case "dd":
-                    calendar.set(Calendar.HOUR, 0);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
                     calendar.set(Calendar.MINUTE, 0);
                     calendar.set(Calendar.SECOND, 0);
                     break;
@@ -534,8 +609,11 @@ public class FunctionDatetime extends BuiltinFunctions {
                 default:
                     break;
             }
-
-            evalString(dateFormat.format(calendar.getTime()));
+            pattern = "yyyy-MM-dd";
+            if (dateStr.length() > 9) {
+                pattern = "yyyy-MM-dd HH:mm:ss";
+            }
+            evalString(new SimpleDateFormat(pattern).format(calendar.getTime()));
         } catch (ParseException e) {
             exec.signal(e);
             evalNull();
