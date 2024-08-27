@@ -139,7 +139,15 @@ public class FunctionMisc extends BuiltinFunctions {
     }
 
     /**
-     * DECODE function
+     *  DECODE(expression,value,result1,result2)
+     *
+     *  If expression=value, displayed result1; otherwise displayed result2
+     *  DECODE(1,1,'第一','第二') 第一
+     *
+     *  If expression=value1, result1, expression=value2, reslut2, expression=value3, result3,
+     *  if expression is not equal to all the values listed, The output is default
+     *
+     *  DECODE(6,1,'第一',2,'第二',3,'第三',4,'第四','defalut');  defalut
      */
     void decode(Expr_func_paramsContext ctx) {
         int cnt = ctx.func_param().size();

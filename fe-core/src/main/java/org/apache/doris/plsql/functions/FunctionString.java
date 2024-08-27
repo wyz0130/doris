@@ -26,6 +26,8 @@ import org.apache.doris.plsql.Exec;
 import org.apache.doris.plsql.Var;
 import org.apache.doris.plsql.executor.QueryExecutor;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +47,7 @@ public class FunctionString extends BuiltinFunctions {
         f.map.put("INSTR", this::instr);
         f.map.put("LEN", this::len);
         f.map.put("LENGTH", this::length);
-        f.map.put("CHAR_LENGTH", this::length);
+        f.map.put("CHAR_LENGTH", this::charLength);
         f.map.put("LOWER", this::lower);
         f.map.put("REPLACE", this::replace);
         f.map.put("SUBSTR", this::substr);
@@ -53,8 +55,6 @@ public class FunctionString extends BuiltinFunctions {
         f.map.put("TO_CHAR", this::toChar);
         f.map.put("UPPER", this::upper);
         f.map.put("SIGN", this::sign);
-        f.map.put("STR_TO_DATE", this::str2date);
-        f.map.put("||", this::concat);
         f.map.put("CONCATWS", this::concatWs);
 
         f.specMap.put("SUBSTRING", this::substring);
@@ -165,15 +165,40 @@ public class FunctionString extends BuiltinFunctions {
     }
 
     /**
-     * LENGTH function
+     * charLength function
+     * Returns the character length of the string str, in characters.
+     * char_length("中") 1
      */
-    void length(Expr_func_paramsContext ctx) {
+    void charLength(Expr_func_paramsContext ctx) {
         if (ctx.func_param().size() != 1) {
             evalNull();
             return;
         }
         int len = evalPop(ctx.func_param(0).expr()).toString().length();
         evalInt(len);
+    }
+
+    /**
+     * length  function
+     * length("中") 3
+     */
+    void length(Expr_func_paramsContext ctx) {
+        if (ctx.func_param().size() != 1) {
+            evalNull();
+            return;
+        }
+        int valueLength = 0;
+        String value = evalPop(ctx.func_param(0).expr()).toString();
+        String chinese = "[\\u0391-\\uFFE5]";
+        for (int i = 0; i < value.length(); i++) {
+            String temp = value.substring(i, i + 1);
+            if (temp.matches(chinese)) {
+                valueLength += 3;
+            } else {
+                valueLength += 1;
+            }
+        }
+        evalInt(valueLength);
     }
 
     /**
@@ -330,42 +355,28 @@ public class FunctionString extends BuiltinFunctions {
 
     /**
      * SIGN function
+     *  SIGN(X)
+     *  Returns 1, 0, or -1, depending on whether the x-value is positive, 0, or negative.
+     *  sign(-0); 0
+     *  sign(-22); -1
+     *  sign(123); 1
      */
     void sign(Expr_func_paramsContext ctx) {
         if (ctx.func_param().size() != 1) {
             evalNull();
         } else {
             String str = evalPop(ctx.func_param(0).expr()).toString();
-            if (str.matches("^[0-9]$")) {
-                if (str.charAt(0) == '-') {
-                    evalInt(-1);
-                } else if (str.equals("0") || str.equals("-0")) {
+            if (NumberUtils.isNumber(str)) {
+                if (str.equals("0") || str.equals("-0")) {
                     evalInt(0);
+                } else if (str.charAt(0) == '-') {
+                    evalInt(-1);
                 } else {
                     evalInt(1);
                 }
             } else {
                 evalNull();
             }
-        }
-    }
-
-    /**
-     * strToDate    str_to_date('2020/09/03','%Y/%m/%d')
-     * format Support {%a、%b、%c、%d、%e、%H、%h、%I、%i、%j、%k、%l、%M、%m、%p、%r、%S、%s、%T、%V、%v、%W、%X、%x、%Y、%y}
-     */
-    void str2date(Expr_func_paramsContext ctx) {
-        String dateStr = evalPop(ctx.func_param(0).expr()).toString();
-        String formatStr = evalPop(ctx.func_param(1).expr()).toString();
-
-        try {
-            SimpleDateFormat format = new SimpleDateFormat(formatStr);
-            Date date = format.parse(dateStr);
-            SimpleDateFormat baseFormat = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS");
-            evalString(baseFormat.format(date));
-        } catch (ParseException e) {
-            exec.signal(e);
-            evalNull();
         }
     }
 
